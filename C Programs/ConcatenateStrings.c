@@ -8,7 +8,7 @@ int main(){
     char str1[]="Hello";
     char str2[]=" World";
     char *str3=concatenate_string(str1,str2);
-    printf("%s",str3);
+    printf("%s , length=%d",str3,strlen(str3));
     // Free the allocated memory
     free(str3);
     return 0;

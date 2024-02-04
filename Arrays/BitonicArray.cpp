@@ -10,6 +10,7 @@ find the peak index of bitonic or mountain array
 using namespace std;
 
 // logn time complexity
+// also known as pivot element
 int peak(int arr[],int len){
     //use binary search instead of linear search
     int start=0;
