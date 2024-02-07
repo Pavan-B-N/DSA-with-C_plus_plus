@@ -4,8 +4,9 @@ using namespace std;
 
 int main()
 {
-    int x = 10;
-    int y = 20;
-    const int *p = &x; // it is possible
-    p = &y;
+    int n=3;
+    cout<<n<<endl;
+    n=n>>1;
+    cout<<n<<endl;
+
 }
