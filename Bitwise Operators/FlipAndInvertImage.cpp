@@ -19,7 +19,7 @@ void flipAndInvert(int arr[][3], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n / 2; j++)
+        for (int j = 0; j <= n / 2; j++)
         {
             // swap-to reverse
             int temp = arr[i][j] ^ 1;

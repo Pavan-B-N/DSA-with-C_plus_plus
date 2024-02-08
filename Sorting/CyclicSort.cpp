@@ -9,7 +9,7 @@ void cyclicSort(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        while (i != arr[i])
+        while (i != arr[i]-1)
         {
             // duplicates are not allowed
             if (arr[i] == arr[arr[i] - 1])
