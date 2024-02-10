@@ -1,12 +1,10 @@
 #include <iostream>
-
+#include <queue>
 using namespace std;
 
 int main()
 {
-    int n=3;
-    cout<<n<<endl;
-    n=n>>1;
-    cout<<n<<endl;
+    queue<int> q;
+    
 
 }
