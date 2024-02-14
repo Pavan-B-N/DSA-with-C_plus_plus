@@ -4,7 +4,6 @@ using namespace std;
 
 int main()
 {
-    list<int> l;
-
-
+    double d=2.0/2.0;
+    cout<<d;
 }
