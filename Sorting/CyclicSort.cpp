@@ -5,6 +5,7 @@
 #include <algorithm>
 using namespace std;
 
+// Time complexity is o(n)
 void cyclicSort(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
