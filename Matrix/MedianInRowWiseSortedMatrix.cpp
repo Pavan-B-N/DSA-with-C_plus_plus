@@ -1,3 +1,17 @@
+/*
+We are given a row-wise sorted matrix of size r*c, we need to find the median of the matrix given. It is assumed that r*c is always odd.
+
+Input:
+1 3 5
+2 6 9
+3 6 9
+Output:
+Median is 5
+If we put all the values in a sorted array A[] = 1 2 3 3 5 6 6 9 9)
+
+*/
+
+// difficult
 #include <iostream>
 #include <climits>
 #include <algorithm>
