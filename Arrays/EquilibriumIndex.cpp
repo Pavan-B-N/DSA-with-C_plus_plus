@@ -6,6 +6,8 @@ Output: 3
 3 is an equilibrium index, because: 
 A[0] + A[1] + A[2] = A[4] + A[5] + A[6]
 */
+#include <iostream>
+using namespace std;
 int equilibrium(int arr[], int n)
 {
     int leftsum, rightsum;
@@ -56,4 +58,10 @@ int equilibrium2(int arr[], int n)
  
     /* If no equilibrium index found, then return 0 */
     return -1;
+}
+
+int main(){
+    int arr[]={-7, 1, 5, 2, -4, 3, 0};
+    cout<<equilibrium2(arr,7);
+    return 0;
 }

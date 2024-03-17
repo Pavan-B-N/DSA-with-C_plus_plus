@@ -23,7 +23,7 @@ void contains_duplicate(int arr[], int n)
 int main()
 {   
     // int arr[]={1,2,3,1};
-    int arr[]={1,2,3};
+    int arr[]={1,2,3,3,1};
     int len=sizeof(arr)/sizeof(arr[0]);
     contains_duplicate(arr,len);
     return 0;

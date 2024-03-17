@@ -14,12 +14,19 @@ Output :
 #include <vector>
 #include <algorithm>
 using namespace std;
-void leftRotate(vector<int> &arr,int d){
+void rightRotate(vector<int> &arr,int d){
     int n=arr.size();
     d=d%n;
     reverse(arr.begin(),arr.begin()+n);
     reverse(arr.begin(),arr.begin()+d);
     reverse(arr.begin()+d,arr.begin()+n);
+}
+void leftRotate(vector<int> &arr,int d){
+    int n=arr.size();
+    d=d%n;
+    reverse(arr.begin(),arr.begin()+n);
+    reverse(arr.begin(),arr.begin()+(n-d));
+    reverse(arr.begin()+(n-d),arr.begin()+n);
 }
 void printLeftRotationForm(vector<int> &arr,int d){
     int n=arr.size();
@@ -30,14 +37,15 @@ void printLeftRotationForm(vector<int> &arr,int d){
 }
 
 int main(){
-    // vector<int> vec={1,2,3,4,5,6,7};
-    vector<int> vec={1, 3, 5, 7, 9};
+    vector<int> vec={1,2,3,4,5,6,7};
+    // vector<int> vec={1, 3, 5, 7, 9};
     printLeftRotationForm(vec,2);
+    cout<<endl;
 
-    // leftRotate(vec,6);
-    // for(auto &ele:vec){
-    //     cout<<ele<<" ";
-    // }
-    // cout<<endl;
+    leftRotate(vec,2);
+    for(auto &ele:vec){
+        cout<<ele<<" ";
+    }
+    cout<<endl;
     return 0;
 }   

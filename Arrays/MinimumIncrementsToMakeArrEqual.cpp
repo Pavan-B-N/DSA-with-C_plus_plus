@@ -20,7 +20,7 @@ using namespace std;
 int minOps(int arr[], int n, int k)
 {
     // max elements of array
-    // max_element returns the address of the array elemen so we need to make dereference to it-
+    // max_element returns the address of the array elemen so we need to make dereference to it
     int max = *max_element(arr, arr+n);
     int res = 0;
  
@@ -33,4 +33,12 @@ int minOps(int arr[], int n, int k)
  
     // return result
     return res;
+}
+
+int main(){
+    int arr[]={4, 7, 19, 16};
+    int n=4;
+    int k=3;// k is the minimum increnmnet we can do
+    cout<<minOps(arr,n,k);
+    return 0;
 }

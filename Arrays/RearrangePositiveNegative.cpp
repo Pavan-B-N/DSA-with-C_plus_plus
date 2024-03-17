@@ -1,3 +1,11 @@
+/*
+An array contains both positive and negative numbers in random order. Rearrange the array elements so that positive and negative numbers are placed alternatively. 
+
+Input: [-1, 2, -3, 4, 5, 6, -7, 8, 9]
+Output:[9, -7, 8, -3, 5, -1, 2, 4, 6]
+
+*/
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -27,4 +35,12 @@ vector<int> rearrangeArray(vector<int> &nums)
         }
     }
     return ans;
+}
+int main(){
+    vector<int> arr={-1, 2, -3, 4, 5, 6, -7, 8, 9};
+    arr=rearrangeArray(arr);
+
+    for(auto &ele:arr){
+        cout<<ele<<" ";
+    }
 }

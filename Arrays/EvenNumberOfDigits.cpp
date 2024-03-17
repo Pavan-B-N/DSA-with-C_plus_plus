@@ -9,6 +9,7 @@
 using namespace std;
 
 int len_num(int n){
+    // because log10(0) is undefined
     if(n==0){
         return 1;
     }
@@ -18,8 +19,7 @@ int findEvenDigitsLength(int arr[],int n){
     int counter=0;
     for(int i=0;i<n;i++){
         int l=len_num(arr[i]);
-        // because log10(0) is undefined
-        if(arr[i]!=0 && l%2==0){
+        if(l%2==0){
             counter++;
         }
     }

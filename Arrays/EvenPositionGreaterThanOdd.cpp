@@ -7,6 +7,7 @@ Explanation:
 After rearranging the array, the elements at even positions (0, 2, 4, 6) are greater than the elements at odd positions (1, 3, 5, 7).
 
 */
+// Wave form of an array
 #include <iostream>
 #include <algorithm>
 using namespace std;

@@ -32,6 +32,7 @@ int triangleNumber(int nums[],int n)
                     nums[i] + nums[k] > nums[j] &&
                     nums[j] + nums[k] > nums[i])
                 {
+                    cout<<nums[i]<<" "<<nums[j]<<" "<<nums[k]<<endl;
                     count++;
                 }
             }
@@ -42,7 +43,7 @@ int triangleNumber(int nums[],int n)
 
 // Time complexity: O(N2).
 // o(nlogn+o^2) = o(n^2)
-int triangleNumber(vector<int>& nums) {
+int triangleNumber1(vector<int>& nums) {
     int n=nums.size();
     int count=0;
     sort(nums.begin(),nums.end());
@@ -59,4 +60,10 @@ int triangleNumber(vector<int>& nums) {
         }
     }
     return count;
+}
+int main(){
+    int nums[]={4, 6, 3, 7};
+    int n=4;
+    // cout<<"Possible Triangles are: "<<triangleNumber(nums,n);
+    return 0;
 }

@@ -1,5 +1,5 @@
 /*
-Given an array arr[] of integers and a number x, the task is to find the smallest subarray with a sum greater than or euql to  the given value
+Given an array arr[] of integers and a number x, the task is to find the smallest subarray with a sum greater than or equal to  the given value
 
 arr[] = {1, 4, 45, 6, 0, 19}
    x  =  51
@@ -59,7 +59,7 @@ int minSubArrayLen2(int x, vector<int> &arr)
 
         while (curr_sum >= x)
         {
-            min_len = std::min(min_len, end - start + 1);
+            min_len = min(min_len, end - start + 1);
             curr_sum -= arr[start];
             ++start;
         }

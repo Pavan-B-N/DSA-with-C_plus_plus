@@ -1,7 +1,7 @@
 #include <iostream>
 #include <climits>
 using namespace std;
-int threeLargest(int arr[],int n){
+int secondLargest(int arr[],int n){
     int largest=INT_MIN;
     int slargest=INT_MIN;
     for(int i=0;i<n;i++){
@@ -17,6 +17,6 @@ int threeLargest(int arr[],int n){
 int main(){
     int arr[]={5,7,8,9,21,66,44,55,10,20};
     int n=sizeof(arr)/sizeof(arr[0]);
-    cout<<threeLargest(arr,n);
+    cout<<secondLargest(arr,n);
     return 0;   
 }

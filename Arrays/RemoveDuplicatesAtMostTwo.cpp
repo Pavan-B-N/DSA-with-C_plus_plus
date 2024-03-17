@@ -16,13 +16,14 @@ using namespace std;
 int removeDuplicates(vector<int> &nums)
 {
     int n = nums.size();
-    int j = 0; // pointer
-    for (int i = 0; i < n;)// note: i is not incrementing here
-    {
-        int ele = nums[i++];// i is incremented to access next element
-        nums[j++] = ele;
-        int c = 1; // counter
+    int j = 0; // pointer to add elements
+    int i = 0; // pointer to interate the array
 
+    while (i < n)
+    {
+        int ele = nums[i++];
+        nums[j++] = ele;
+        int c = 1;
         while (i < n && ele == nums[i])
         {
             if (c < 2)
@@ -33,14 +34,17 @@ int removeDuplicates(vector<int> &nums)
             i++;
         }
     }
+
     return j;
 }
 
-int main(){
-    vector<int> nums={1,1,1,2,2,3};
-    int k=removeDuplicates(nums);
-    for(int i=0;i<k;i++){
-        cout<<nums[i]<<" ";
+int main()
+{
+    vector<int> nums = {1, 1, 1, 2, 2,2,2,2,2,2, 3,3,3,3,4};
+    int k = removeDuplicates(nums);
+    for (int i = 0; i < k; i++)
+    {
+        cout << nums[i] << " ";
     }
     return 0;
 }
