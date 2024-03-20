@@ -19,7 +19,7 @@ Node* getMiddle(Node* head) {
     return mid;
 }
 
-Node* merge(Node* left, Node* right) {
+Node* mergeLL(Node* left, Node* right) {
     Node* dummy = new Node(-1);
     Node* current = dummy;
 
@@ -50,7 +50,7 @@ Node* mergeSort(Node* head) {
     Node* leftSorted = mergeSort(left);
     Node* rightSorted = mergeSort(right);
 
-    return merge(leftSorted, rightSorted);
+    return mergeLL(leftSorted, rightSorted);
 }
 
 int main(){
