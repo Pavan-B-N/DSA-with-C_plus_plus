@@ -1,5 +1,11 @@
 /*
 Given an array arr[]. The task is to find the inversion count of arr[]. Where two elements arr[i] and arr[j] form an inversion if a[i] > a[j] and i < j.
+
+Input: N = 5, arr[] = {2, 4, 1, 3, 5}
+Output: 3
+Explanation: The sequence 2, 4, 1, 3, 5 
+has three inversions (2, 1), (4, 1), (4, 3).
+
 */
 
 // o(n^2)
@@ -7,6 +13,7 @@ Given an array arr[]. The task is to find the inversion count of arr[]. Where tw
 #include <vector>
 using namespace std;
 
+// o(n^2)
 int getInvCount(int arr[], int n)
 {
     int inv_count = 0;
@@ -61,6 +68,7 @@ vector<int> merge_sort(vector<int> arr,int &invc){
     return merge(left,right,invc);
 }
 
+// o(nlogn)
 int invCount(vector<int> arr){
     int invc=0;
     merge_sort(arr,invc);

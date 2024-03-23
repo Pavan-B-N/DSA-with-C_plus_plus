@@ -6,7 +6,7 @@
 #include <iostream>
 using namespace std;
 
-void printPascalsTriangle(int n)
+void printPascalsTriangle(const int n)
 {
     int arr[n][n];
     for (int i = 0; i < n; i++)
