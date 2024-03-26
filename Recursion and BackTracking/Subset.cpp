@@ -5,6 +5,7 @@ subsets=[a,b,c,ab,ac,bc,abc,""]
 
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 // processed and unprocessed string
 void subsets(string p,string up){

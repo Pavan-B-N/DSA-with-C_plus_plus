@@ -50,6 +50,7 @@ bool isSymmetric(TreeNode* root){
         result.push_back(currentLevelList);
     }
 
+    // two pointer method
     for(auto &list:result){
         //compare start and end pointer elements
         int i=0;

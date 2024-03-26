@@ -24,7 +24,6 @@ Output: 15
 #include "SinglyLinkedList.h"
 using namespace std;
 
-
 // hashing
 void findMergeNode(Node* n1, Node* n2) {
     unordered_set<Node*> hashSet;

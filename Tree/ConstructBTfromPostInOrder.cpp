@@ -1,9 +1,3 @@
-/*
-Construct Binary Tree from Preorder and Inorder Traversal
-*/
-
-// https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/
-
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -19,12 +13,12 @@ public:
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-TreeNode* buildTree(const vector<int>& preorder, const vector<int>& inorder) {
-    if (preorder.empty()) {
+TreeNode* buildTree(const vector<int>& inorder, const vector<int>& postorder) {
+    if (postorder.empty()) {
         return nullptr;
     }
 
-    int rootValue = preorder[0];
+    int rootValue = postorder.back();
     TreeNode* root = new TreeNode(rootValue);
 
     int index = 0;
@@ -32,13 +26,13 @@ TreeNode* buildTree(const vector<int>& preorder, const vector<int>& inorder) {
         index++;
     }
 
-    vector<int> leftPreorder(preorder.begin() + 1, preorder.begin() + index + 1);
     vector<int> leftInorder(inorder.begin(), inorder.begin() + index);
-    root->left = buildTree(leftPreorder, leftInorder);
+    vector<int> leftPostorder(postorder.begin(), postorder.begin() + index);
+    root->left = buildTree(leftInorder, leftPostorder);
 
-    vector<int> rightPreorder(preorder.begin() + index + 1, preorder.end());
     vector<int> rightInorder(inorder.begin() + index + 1, inorder.end());
-    root->right = buildTree(rightPreorder, rightInorder);
+    vector<int> rightPostorder(postorder.begin() + index, postorder.end() - 1);
+    root->right = buildTree(rightInorder, rightPostorder);
 
     return root;
 }
@@ -53,13 +47,12 @@ void inorderTraversal(TreeNode *root)
     cout << root->val << " -> ";
     inorderTraversal(root->right);
 }
-
 int main(int argc, char const *argv[])
 {
-    vector<int> inorder={8,4,10,9,11,2,5,1,6,3,7};
-    vector<int> preorder={1,2,4,8,9,10,11,5,3,6,7};
+    vector<int> inorder={9,5,1,7,2,12,8,4,3,11};
+    vector<int> postorder={9,1,2,12,7,5,3,11,4,8};
 
-    TreeNode *root=buildTree(preorder,inorder);
+    TreeNode *root=buildTree(inorder,postorder);
     inorderTraversal(root);
 
 

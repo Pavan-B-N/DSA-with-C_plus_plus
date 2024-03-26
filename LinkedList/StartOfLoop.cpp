@@ -3,10 +3,12 @@
 #include "CircularLinkedList.h"
 using namespace std;
 
-Node* startOfLoop(Node *head,Node *slow){
-    while(head!=slow){
-        head=head->next;
+// after cycle detected
+Node* startOfLoop(Node *head,Node *fast,Node *slow){
+    fast=head;
+    while(fast!=slow){
+        fast=fast->next;
         slow=slow->next;
     }
-    return slow;
+    return slow;// or fast
 }

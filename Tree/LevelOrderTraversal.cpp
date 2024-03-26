@@ -22,6 +22,8 @@ public:
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+// Time Complexity: O(n), where n is the number of nodes in the binary tree. 
+// Auxiliary Space: O(n),
 vector<vector<int>> levelOrder(TreeNode *root){
     vector<vector<int>> result;
     if(root==nullptr){
@@ -49,3 +51,5 @@ vector<vector<int>> levelOrder(TreeNode *root){
     }
     return result;
 }
+
+

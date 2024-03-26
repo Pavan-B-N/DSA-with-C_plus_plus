@@ -10,6 +10,7 @@ Design an algorithm to serialize and deserialize a binary tree. There is no rest
 #include <queue>
 #include <climits>
 #include <vector>
+#include <string>
 using namespace std;
 
 // definition of TreeNode is given in leetcode

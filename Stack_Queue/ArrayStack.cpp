@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-const int CAPACITY = 100; // Maximum size of the stack
+const int CAPACITY = 5; // Maximum size of the stack
 
 class ArrayStack
 {
@@ -70,6 +70,8 @@ int main()
     stack.push(10);
     stack.push(20);
     stack.push(30);
+    stack.push(40);
+    stack.push(50);
 
     stack.display();
 
@@ -77,7 +79,10 @@ int main()
     stack.pop();
 
     stack.display();
-
+    stack.push(60);
+    stack.push(70);
+    // stack.push(80);//stack overflow
+    stack.display();
     cout<<"top= "<<stack.peek()<<endl;
     return 0;
 }

@@ -56,18 +56,9 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         }
         result.push_back(currentLevelList);
     }
+    //reverse only the odd level list
     for(int i=1;i<result.size();i+=2){
-        //reverse the list
-        vector<int> list=result[i];
-        int j=0;
-        int k=list.size()-1;
-        while(j<k){
-            int temp=list[j];
-            list[j]=list[k];
-            list[k]=temp;
-            j++;
-            k--;
-        }
+        reverse(result[i].begin(),result[i].end());
     }
     return result;
 }

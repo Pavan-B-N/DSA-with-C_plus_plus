@@ -3,7 +3,7 @@
 using namespace std;
 void permutations(string p, string up) {
     if (up.empty()) {
-        cout << p << std::endl;
+        cout << p << endl;
         return;
     }
 
@@ -18,7 +18,7 @@ void permutations(string p, string up) {
 
 int permutationsCount(string p, string up) {
     if (up.empty()) {
-        cout << p << std::endl;
+        cout << p << endl;
         return 1;
     }
 
@@ -33,7 +33,6 @@ int permutationsCount(string p, string up) {
     return count;
 }
 
-// Example usage:
 int main() {
     permutations("","abc");
     // cout<<permutationsCount("","abc");

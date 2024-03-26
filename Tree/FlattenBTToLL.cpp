@@ -11,39 +11,60 @@ The "linked list" should be in the same order as a pre-order traversal of the bi
 using namespace std;
 
 // definition of TreeNode is given in leetcode
-class TreeNode{
+class TreeNode
+{
 public:
     int val;
-    TreeNode *left,*right;
+    TreeNode *left, *right;
     TreeNode() : val(0), left(nullptr), right(nullptr) {}
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
 // using queues
-void flatten(TreeNode* root) {
-        queue<TreeNode*> queue;
-        getBTQueue(root,queue);
+void flatten(TreeNode *root)
+{
+    queue<TreeNode *> queue;
+    getBTQueue(root, queue);
 
-        TreeNode* dummy=new TreeNode(0);
-        TreeNode* current = dummy;
+    TreeNode *dummy = new TreeNode(0);
+    TreeNode *current = dummy;
 
-        while(!queue.empty()){
-            TreeNode* nextNode=queue.front();
-            queue.pop();
-            
-            current->left = nullptr;
-            current->right = nextNode;
-            current = nextNode;
-        }
-        root=dummy->right;
+    while (!queue.empty())
+    {
+        TreeNode *nextNode = queue.front();
+        queue.pop();
+
+        current->left = nullptr;
+        current->right = nextNode;
+        current = nextNode;
     }
+    root = dummy->right;
+}
 // usig preorder traversal with queue
-void getBTQueue(TreeNode* root,queue<TreeNode*> &queue){
-    if(root==nullptr){
+void getBTQueue(TreeNode *root, queue<TreeNode *> &queue)
+{
+    if (root == nullptr)
+    {
         return;
     }
     queue.push(root);
-    getBTQueue(root->left,queue);
-    getBTQueue(root->right,queue);
+    getBTQueue(root->left, queue);
+    getBTQueue(root->right, queue);
+}
+
+// efficient solution
+TreeNode *prev = nullptr;
+void flatten(TreeNode *node)
+{
+    if (!node)
+    {
+        return;
+    }
+    flatten(node->right);
+    flatten(node->left);
+
+    node->right = ::prev;
+    node->left = nullptr;
+    ::prev = node;
 }
