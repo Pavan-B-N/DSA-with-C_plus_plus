@@ -50,8 +50,8 @@ public:
 
 
 int main() {
-    //Graph g(5); // Create a graph with 5 vertices
-    GraphUsingAdjacencyMatrix g(5); // Create a graph with 5 vertices
+    Graph g(5); // Create a graph with 5 vertices
+    // GraphUsingAdjacencyMatrix g(5); // Create a graph with 5 vertices
 
     // Add edges
     g.addEdge(0, 1);
