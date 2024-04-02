@@ -10,7 +10,6 @@ Explanation: ((a+b)) can reduced to (a+b), this Redundant
 #include <stack>
 using namespace std;
 
-// Function to check redundant brackets in a
 // balanced expression
 bool checkRedundancy(string& str)
 {
@@ -66,7 +65,9 @@ void findRedundant(string& str)
 // Driver code
 int main()
 {
-	string str = "((a+b))";
+	// string str = "((ab))";//yes
+	string str = "a*b+(a+b)";//no
+	// string str = "ab";//no
 	findRedundant(str);
 	return 0;
 }

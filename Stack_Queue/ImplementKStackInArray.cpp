@@ -11,7 +11,8 @@ using namespace std;
 // hard problem
 // Time Complexity: O(N), as we are using a loop to traverse N times.
 // Auxiliary Space: O(N), as we are using extra space for the stack.
-class kStacks {
+class kStacks
+{
     int *arr;
     int *top;
     int *next;
@@ -19,7 +20,8 @@ class kStacks {
     int free;
 
 public:
-    kStacks(int k, int n) {
+    kStacks(int k, int n)
+    {
         this->k = k;
         this->n = n;
         arr = new int[n];
@@ -33,18 +35,21 @@ public:
         next[n - 1] = -1;
     }
 
-    bool isFull() {
+    bool isFull()
+    {
         return (free == -1);
     }
 
-    void push(int item, int sn) {
-        if (isFull()) {
+    void push(int item, int sn)
+    {
+        if (isFull())
+        {
             cout << "\nStack Overflow\n";
             return;
         }
 
         int i = free;
-        //update index of free slot to index of next slot in free list
+        // update index of free slot to index of next slot in free list
         free = next[i];
         next[i] = top[sn];
         top[sn] = i;
@@ -52,19 +57,24 @@ public:
         arr[i] = item;
     }
 
-    void display(int n){
-        int i=top[n];
-        cout<<"-------"<<endl;
-        while(i!=-1){
-            cout<<" | "<<arr[i]<<" | "<<endl;
-            i=next[i];
+    void display(int n)
+    {
+        int i = top[n];
+        cout << "-------" << endl;
+        while (i != -1)
+        {
+            cout << " | " << arr[i] << " | " << endl;
+            i = next[i];
         }
-        cout<<"-------"<<endl<<endl;;
-
+        cout << "-------" << endl
+             << endl;
+        ;
     }
 
-    int pop(int sn) {
-        if (isEmpty(sn)) {
+    int pop(int sn)
+    {
+        if (isEmpty(sn))
+        {
             cout << "\nStack Underflow\n";
             return INT_MAX;
         }
@@ -76,12 +86,14 @@ public:
         return arr[i];
     }
 
-    bool isEmpty(int sn) {
+    bool isEmpty(int sn)
+    {
         return (top[sn] == -1);
     }
 };
 
-int main() {
+int main()
+{
     int k = 3, n = 10;
     kStacks ks(k, n);
 
@@ -101,7 +113,6 @@ int main() {
     ks.display(0);
     ks.display(1);
     ks.display(2);
-
 
     // cout << "Popped element from stack 2 is " << ks.pop(2) << endl;
     // cout << "Popped element from stack 1 is " << ks.pop(1) << endl;
