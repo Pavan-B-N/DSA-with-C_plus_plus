@@ -19,6 +19,14 @@ Output: 4
 
 // The number of calls to DFS() gives the number of connected components
 
+// https://leetcode.com/problems/number-of-islands/description/
+
+/*
+Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
+
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+*/
+
 #include <iostream>
 #include <cstring>
 using namespace std;
@@ -98,52 +106,41 @@ int main()
 
 
 /*
-
 class Solution {
-  public:
-    // Function to find the number of islands.
+public:
     int numIslands(vector<vector<char>>& grid) {
-        int count = 0;
-
+        int c=0;
         int ROW=grid.size();
         int COL=grid[0].size();
         for(int i=0;i<ROW;i++){
             for(int j=0;j<COL;j++){
                 if(grid[i][j]=='1'){
                     dfs(grid,i,j);
-                    count++;
+                    c++;
                 }
             }
         }
-        
-        return count;
-        
+        return c;
+
     }
-    
-    void dfs(vector<vector<char>>& grid,int row,int col){
-        
+    bool isSafe(vector<vector<char>> &grid,int row,int col){
         int ROW=grid.size();
         int COL=grid[0].size();
-        
-        static int rowNbr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-        static int colNbr[] = {-1, 0, 1, -1, 1, -1, 0, 1};
-        
-        grid[row][col]='0';//visited will be changed to 0
-        
-        for (int k = 0; k < 8; ++k){
-             if (isSafe(grid, row + rowNbr[k], col + colNbr[k]))
-                dfs(grid,row + rowNbr[k], col + colNbr[k]);
+        return (row>=0) && (row<ROW) && (col>=0) && (col<COL) && (grid[row][col]=='1');
+    }
+    void dfs(vector<vector<char>> &grid,int row,int col){
+        int ROW=grid.size();
+        int COL=grid[0].size();
+        static int rowNbr[]={-1,0,1,0};
+        static int colNbr[]={0,1,0,-1};
+        grid[row][col]='0';// used instead of visited array
+        for(int k=0;k<4;k++){
+            if(isSafe(grid,row+rowNbr[k],col+colNbr[k])){
+                dfs(grid,row+rowNbr[k],col+colNbr[k]);
+            }
         }
-           
     }
-    
-    bool isSafe(vector<vector<char>>& grid,int row,int col){
-        int ROW=grid.size();
-        int COL=grid[0].size();
-        return (row >= 0) && (row < ROW) && (col >= 0) && (col < COL) && (grid[row][col]=='1');
-    }
-    
-    
+
 };
 
 */

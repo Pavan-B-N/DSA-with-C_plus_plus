@@ -11,6 +11,7 @@ To perform a flood fill, consider the starting pixel, plus any pixels connected 
 #include <vector>
 using namespace std;
 
+// s= starting pexel of row or col
 vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int newColor)
 {
     int ROW = image.size();

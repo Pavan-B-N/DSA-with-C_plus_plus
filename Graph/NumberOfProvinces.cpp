@@ -17,6 +17,8 @@ The graph clearly has 2 Provinces [1,3] and [2]. As city 1 and city 3 has a path
 
 */
 
+// https://leetcode.com/problems/number-of-provinces/description/
+
 #include <iostream>
 #include <vector>
 #include <queue>
