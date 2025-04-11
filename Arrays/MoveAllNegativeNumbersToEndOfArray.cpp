@@ -23,8 +23,9 @@ void moveNegativeToEnd(vector<int> &arr)
         {
             swap(arr[start], arr[end]);
             end--;
+        }else{
+            start++;
         }
-        start++;
     }
 }
 // time=o(n) and space=o(n) - order is maintained

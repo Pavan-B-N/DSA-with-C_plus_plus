@@ -9,18 +9,21 @@ If the given ‘HEIGHT’ array is [10,20,30,10], the answer 20 as the frog can 
 */
 #include <iostream>
 #include <vector>
+#include <limits.h>
 using namespace std;
 
 // memoization technique = top-down approach
 // Time complexity = o(n) left skew of tree
 // Space complexity = o(n)
 int frogDp(int index,vector<int> &heights,vector<int> &dp){
-    if(index==0){
+    if(index<=0){
         return 0;
     }
     if(dp[index]!=-1){
         return dp[index];
     }
+    // left = n-1
+    // right = n-2
     int left=frogDp(index-1,heights,dp)+abs(heights[index]-heights[index-1]);
     int right=INT_MAX;
     if(index>1){
@@ -56,7 +59,7 @@ int frogJumpTabulation(int n, vector<int> &heights)
 
 // Time complexity = o(n)
 // Space complexity = o(1)
-int frogJumpTabulation(int n, vector<int> &heights)
+int frogJumpTabulation2(int n, vector<int> &heights)
 {
     if (n == 1) return 0; // If there's only one stone, no cost is needed to stay on it
 
@@ -71,4 +74,12 @@ int frogJumpTabulation(int n, vector<int> &heights)
         b = curr; // Update the cost of the current stone
     }
     return b; // The minimum cost to reach the last stone
+}
+
+
+int main(){
+    int n=4;
+    vector<int> heights={10,20,30,10};
+    cout<<frogJump(n,heights);
+    return 0;
 }

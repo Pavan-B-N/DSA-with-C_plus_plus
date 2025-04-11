@@ -1,5 +1,5 @@
 // The depth of a node is a length of the path from root to that node
-// max depth of a tree is a length of the longest path from root node to the leaf node which is sam as height of a binary tree
+// max depth of a tree is a length of the longest path from root node to the leaf node which is same as height of a binary tree
 // maxDepth of binary tree == height og a bt
 #include <iostream>
 #include <algorithm>

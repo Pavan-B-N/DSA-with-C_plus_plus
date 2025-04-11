@@ -103,7 +103,7 @@ private:
         }
         return node;
     }
-    // inorderSuccessor is the minimum value from right subtree
+    // inorderSuccessor is the minimum value from right subtree of the node
     int inorderSuccessor(Node *node){
         if(node==nullptr){
             return -1;

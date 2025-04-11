@@ -25,7 +25,7 @@ vector<vector<int>> verticalTraversal(TreeNode* root) {
     if (!root) return {}; 
     
     map<int, vector<int>> verticalMap; // col, list of node values
-    queue<pair<TreeNode*, int>> q; // Node, col
+    queue<pair<TreeNode*, int>> q; // Node, col = horizontal size
     q.push({root, 0}); // Push the root node along with its vertical level
     
     while (!q.empty()) {

@@ -56,6 +56,7 @@ bool isSymmetric(TreeNode* root){
         int i=0;
         int j=list.size()-1;
         while(i<j){
+            // since elements are pointer so we cannot directly compare it
             if((list[i]==nullptr && list[j]!=nullptr) || (list[i]!=nullptr && list[j]==nullptr)){
                 return false;
             }

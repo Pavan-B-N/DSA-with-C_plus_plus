@@ -10,26 +10,28 @@ Explanation: Given intervals: [1,3],[2,4],[6,8],[9,10], we have only two overlap
 using namespace std;
 
 vector<vector<int>> mergeOverlappingIntervals(vector<vector<int>> &arr){
-    int n=arr.size();
-    sort(arr.begin(),arr.end());
+    sort(arr.begin(), arr.end());
 
     vector<vector<int>> res;
+    int n = arr.size();
 
     for(int i=0;i<n;i++){
-        int start=arr[i][0];
-        int end=arr[i][1];
-        if(!res.empty() && end<=res.back()[1]){
-            continue;
+        int start = arr[i][0];
+        int end = arr[i][1];
+
+        // Merge intervals as long as they overlap
+        while (i + 1 < n && arr[i + 1][0] <= end) {
+            end = max(end, arr[i + 1][1]);
+            i++;
         }
-        for(int j=i+1;j<n;j++){
-            if(arr[j][0]<=end){
-                end=max(end,arr[j][1]);
-            }else{
-                break;
-            }
-        }
-        res.push_back({start,end});
+
+        res.push_back({start, end});
     }
+
+    for (const auto& interval : res) {
+        cout << interval[0] << ", " << interval[1] << endl;
+    }
+
     return res;
 }
 
