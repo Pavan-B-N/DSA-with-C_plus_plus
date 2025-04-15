@@ -25,6 +25,7 @@ int ceil_num(int arr[], int len, int target)
 
 // if array is sorted then we can use binary search
 // since the given array is sorted , hence we can apply binary search so that start->ceil and end->floor
+// https://leetcode.com/problems/search-insert-position/description/
 int ceilNum(int arr[], int len, int target)
 {
     int start = 0;

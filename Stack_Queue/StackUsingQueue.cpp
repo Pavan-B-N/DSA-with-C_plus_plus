@@ -91,8 +91,8 @@ public:
     }
 };
 int main() {
-    Stack s;
-    // StackEfficient s;
+    // Stack s;
+    StackEfficient s;
 
     s.push(1);
     s.push(2);
@@ -100,13 +100,13 @@ int main() {
 
     cout << "Top element: " << s.top() << endl;
 
-    s.pop();
-    cout << "Top element after popping: " << s.top() << endl;
+    // s.pop();
+    // cout << "Top element after popping: " << s.top() << endl;
 
-    s.push(4);
-    cout << "Top element after pushing: " << s.top() << endl;
+    // s.push(4);
+    // cout << "Top element after pushing: " << s.top() << endl;
 
-    cout << "Is stack empty? " << (s.empty() ? "Yes" : "No") << endl;
+    // cout << "Is stack empty? " << (s.empty() ? "Yes" : "No") << endl;
 
     return 0;
 }

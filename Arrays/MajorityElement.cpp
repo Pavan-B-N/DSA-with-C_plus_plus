@@ -13,6 +13,7 @@ Output: 2
 #include <map>
 
 using namespace std;
+// use moore's algorithms for this
 
 int majorityElement(vector<int>& nums) {
     int n = nums.size();

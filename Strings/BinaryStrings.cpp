@@ -12,7 +12,7 @@ Output: -1
 
 */
 #include <iostream>
-using namespace std;
+using namespace std; 
 
 // Time complexity: O(N)
 int maxBinarySubStr(string str)

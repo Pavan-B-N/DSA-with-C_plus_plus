@@ -9,6 +9,7 @@ Output: 7
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <queue>
 using namespace std;
 
 // o(nlogn)
@@ -21,8 +22,29 @@ int kthSmallest(vector<int> arr,int k){
     return arr[k-1];
 }
 
+// https://leetcode.com/problems/kth-largest-element-in-an-array/
 //other approaches includes priority queue and counting sort
+int findKthLargest(vector<int>& nums, int k) {
+    int n=nums.size();
+    if(k>n){
+        return -1;
+    }
+    // time complexity for maxHeap operations is o(logn)
+    // space complexity is o(n)
+    priority_queue<int> maxHeap;
+    for(int ele:nums){
+        maxHeap.push(ele);
+    }
 
+    int kthLargest=-1;
+    while(!maxHeap.empty() && k>0){
+        kthLargest=maxHeap.top();
+        maxHeap.pop();
+        k--;
+    }
+
+    return kthLargest;
+}
 int main(){
     vector<int> arr={7,10,4,3,20,15};
     cout<<kthSmallest(arr,3);

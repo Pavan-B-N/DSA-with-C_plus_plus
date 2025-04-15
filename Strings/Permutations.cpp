@@ -18,6 +18,7 @@ forms as ABC, ACB, BAC, BCA, CAB and CBA
 
 using namespace std;
 // n! is the number of possible permuations
+// processed and unprocessed string
 void printPermutations(string p, string up) {
     if (up.empty()) {
         cout << p << " ";

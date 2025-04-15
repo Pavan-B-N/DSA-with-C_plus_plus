@@ -27,6 +27,24 @@ Explanation: There are three ways to climb to the top.
 #include <vector>
 using namespace std;
 
+// memoization
+int climbStairs(int n) {
+    vector<int> memo(n+1, -1);
+    return countPossibleWays(n, memo);
+}
+
+int countPossibleWays(int n, vector<int> &memo) {
+    if (n == 0) return 1;
+    if (n < 0) return 0;
+    if (memo[n] != -1) return memo[n];
+
+    memo[n] = countPossibleWays(n - 1, memo) + countPossibleWays(n - 2, memo);
+    return memo[n];
+}
+//----
+
+
+// tabulation
 int climbStairs(int n)
 {
     if (n == 1)
@@ -41,4 +59,19 @@ int climbStairs(int n)
     }
 
     return dp[n];
+}
+
+int climbStairs(int n) {
+    if(n<=1){
+        return n;
+    }
+    int a=1;
+    int b=2;
+    for(int i=3;i<=n;i++){
+        int next=a+b;
+        a=b;
+        b=next;
+    }
+
+    return b;
 }

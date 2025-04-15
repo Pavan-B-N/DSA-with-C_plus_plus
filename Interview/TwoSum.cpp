@@ -14,6 +14,7 @@ output = [0,5] i.e 2,7
 #include <vector>
 #include <set>
 #include <map>
+#include <unordered_map>
 using namespace std;
 
 // using start and end pointer
@@ -74,6 +75,21 @@ void printAllPairs(int arr[],int n,int target){
         }
         hashMap.insert({arr[i],i});
     }
+}
+
+// https://leetcode.com/problems/two-sum/submissions/1603917016/
+// Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int, int> map;
+    
+    for (int i = 0; i < nums.size(); i++) {
+        int diff = target - nums[i];
+        if (map.find(diff) != map.end()) {
+            return {map[diff], i};  // diff found earlier, return indices
+        }
+        map[nums[i]] = i;  // store current element after checking
+    }
+    return {-1, -1};
 }
 
 int main(){

@@ -14,37 +14,61 @@ using namespace std;
 // / Auxiliary Space: o(1)
 // push = (2*curr - min)
 // pop = (2*min - curr)
-class SpecialStackOptimized
+
+class MinStack
 {
 public:
-    stack<int> originalStack;
-    int min;
-    void push(int ele)
+    stack<long long int> st; // Use long long to prevent overflow issues
+    long long int minElement;
+
+    void push(int val)
     {
-       if(originalStack.empty() || ele>=min ){
-            originalStack.push(ele);
-       }else{
-            originalStack.push(2*ele-min);
-            min=ele;
-       }
+        if (st.empty())
+        {
+            st.push(val);
+            minElement = val;
+        }
+        else
+        {
+            if (val < minElement)
+            {
+                st.push((long long)2 * val - minElement);
+                minElement = val;
+            }
+            else
+            {
+                st.push(val);
+            }
+        }
     }
 
     void pop()
     {
-        if(originalStack.empty()){
-            cout<<"Stack Underflow";
-        }else if(originalStack.top()>min){
-            originalStack.pop();
-        }else{
-            min=2*min-originalStack.top();
-            originalStack.pop();
+        if (st.top() < minElement)
+        {
+            // Decode the minimum element by restoring the previous min
+            minElement = 2 * minElement - st.top();
         }
+        st.pop();
     }
+
+    int top()
+    {
+        if (st.empty())
+            return -1; // Or throw exception
+
+        if (st.top() < minElement)
+        {
+            return minElement;
+        }
+        return (int)st.top();
+    }
+
     int getMin()
     {
-        return min;
+        return minElement;
     }
-};  
+};
 
 // Auxiliary Space: O(n). because we are using extra stack to store minimum elements
 class SpecialStack
@@ -76,25 +100,3 @@ public:
         return minStack.top();
     }
 };
-
-int main(int argc, char const *argv[])
-{
-    // SpecialStack s;
-    SpecialStackOptimized s;
-    s.push(10);
-    s.push(5);
-    s.push(80);
-    s.push(3);
-    s.push(2);
-    s.push(2);
-
-    cout << "Min: " << s.getMin() << endl;
-    s.pop();
-    cout << "Min: " << s.getMin() << endl;
-    s.pop();
-    cout << "Min: " << s.getMin() << endl;
-    s.pop();
-    cout << "Min: " << s.getMin() << endl;
-    s.pop();
-    return 0;
-}
