@@ -9,6 +9,8 @@ The Longest Palindromic Subsequence (LPS) is the problem of finding a maximum-le
 #include <vector>
 using namespace std;
 
+// need to solve using dp in future
+
 bool isPalindrome(string str){
     int i=0;
     int j=str.length()-1;
@@ -34,7 +36,7 @@ void subSequences(string p,string up,vector<string> &res){
     subSequences(p+up[0],up.substr(1),res);
     subSequences(p,up.substr(1),res);
 }
-
+// O(n×2^n)
 string longestPalindromeSubSequnece(string str){
     vector<string> palindromicSubSequences;
     subSequences("",str,palindromicSubSequences);

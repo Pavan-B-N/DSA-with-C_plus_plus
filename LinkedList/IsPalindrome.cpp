@@ -7,6 +7,8 @@ using namespace std;
 // return the mid
 // 1 2 3 mid=1
 // 1 2 3 4 mid=2
+
+// Refer the new one from FAANG
 Node* getMid(Node *head){
     if(head==nullptr || head->next==nullptr){
         head;

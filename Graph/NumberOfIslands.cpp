@@ -29,10 +29,56 @@ An island is surrounded by water and is formed by connecting adjacent lands hori
 
 #include <iostream>
 #include <cstring>
+#include <vector>
 using namespace std;
 
 #define ROW 5
 #define COL 5
+
+// --------------------------
+class Solution
+{
+public:
+    int numIslands(vector<vector<char>> &grid)
+    {
+        int c = 0;
+        int ROW = grid.size();
+        int COL = grid[0].size();
+        for (int i = 0; i < ROW; i++)
+        {
+            for (int j = 0; j < COL; j++)
+            {
+                if (grid[i][j] == '1')
+                {
+                    dfs(grid, i, j);
+                    c++;
+                }
+            }
+        }
+        return c;
+    }
+    bool isSafe(vector<vector<char>> &grid, int row, int col)
+    {
+        int ROW = grid.size();
+        int COL = grid[0].size();
+        return (row >= 0) && (row < ROW) && (col >= 0) && (col < COL) && (grid[row][col] == '1');
+    }
+    void dfs(vector<vector<char>> &grid, int row, int col)
+    {
+        int ROW = grid.size();
+        int COL = grid[0].size();
+        static int rowNbr[] = {-1, 0, 1, 0};
+        static int colNbr[] = {0, 1, 0, -1};
+        grid[row][col] = '0'; // used instead of visited array
+        for (int k = 0; k < 4; k++)
+        {
+            if (isSafe(grid, row + rowNbr[k], col + colNbr[k]))
+            {
+                dfs(grid, row + rowNbr[k], col + colNbr[k]);
+            }
+        }
+    }
+};
 
 // cell (row, col) can be included in DFS
 int isSafe(int M[][COL], int row, int col, bool visited[][COL])
@@ -54,8 +100,8 @@ void DFS(int M[][COL], int row, int col, bool visited[][COL])
 
     // Recur for all connected neighbours
     for (int k = 0; k < 8; ++k)
-        if (isSafe(M, row + rowNbr[k], col + colNbr[k],visited))
-            DFS(M, row + rowNbr[k], col + colNbr[k],visited);
+        if (isSafe(M, row + rowNbr[k], col + colNbr[k], visited))
+            DFS(M, row + rowNbr[k], col + colNbr[k], visited);
 }
 
 int countIslands(int M[][COL])
@@ -103,44 +149,3 @@ int main()
 
     return 0;
 }
-
-
-/*
-class Solution {
-public:
-    int numIslands(vector<vector<char>>& grid) {
-        int c=0;
-        int ROW=grid.size();
-        int COL=grid[0].size();
-        for(int i=0;i<ROW;i++){
-            for(int j=0;j<COL;j++){
-                if(grid[i][j]=='1'){
-                    dfs(grid,i,j);
-                    c++;
-                }
-            }
-        }
-        return c;
-
-    }
-    bool isSafe(vector<vector<char>> &grid,int row,int col){
-        int ROW=grid.size();
-        int COL=grid[0].size();
-        return (row>=0) && (row<ROW) && (col>=0) && (col<COL) && (grid[row][col]=='1');
-    }
-    void dfs(vector<vector<char>> &grid,int row,int col){
-        int ROW=grid.size();
-        int COL=grid[0].size();
-        static int rowNbr[]={-1,0,1,0};
-        static int colNbr[]={0,1,0,-1};
-        grid[row][col]='0';// used instead of visited array
-        for(int k=0;k<4;k++){
-            if(isSafe(grid,row+rowNbr[k],col+colNbr[k])){
-                dfs(grid,row+rowNbr[k],col+colNbr[k]);
-            }
-        }
-    }
-
-};
-
-*/

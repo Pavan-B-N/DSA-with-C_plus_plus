@@ -22,7 +22,7 @@ int orangesRotting(vector<vector<int>> &grid)
     // queue for store {{row,col},timetorotten};
     queue<pair<pair<int, int>, int>> q;
     // visited matrix
-    vector<vector<int>> visited(n, vector<int>(m));
+    vector<vector<bool>> visited(n, vector<bool>(m));
     // traverse the matrix and store all rotten oragnes in queue
     for (int i = 0; i < n; i++)
     {
@@ -31,10 +31,10 @@ int orangesRotting(vector<vector<int>> &grid)
             if (grid[i][j] == 2)
             {
                 q.push({{i, j}, 0});
-                visited[i][j] = 2;
+                visited[i][j] = true;
             }
             else
-                visited[i][j] = 0;
+                visited[i][j] = false;
         }
     }
     // now traverse in all four direction the queue to get maximum time for all rotten orange
@@ -42,12 +42,13 @@ int orangesRotting(vector<vector<int>> &grid)
     int dcol[4] = {0, +1, 0, -1};
     int time_to_rotten = 0;
 
+    // bfs
     while (!q.empty())
     {
         int r = q.front().first.first;
         int c = q.front().first.second;
         int t = q.front().second;
- 
+
         time_to_rotten = max(time_to_rotten, t);
         q.pop();
         // move around in all four directions
@@ -57,10 +58,11 @@ int orangesRotting(vector<vector<int>> &grid)
             int ncl = c + dcol[i];
 
             // boundary cases
-            if (nrw >= 0 && nrw < n && ncl >= 0 && ncl < m && visited[nrw][ncl] != 2 && grid[nrw][ncl] == 1)
+            if (nrw >= 0 && nrw < n && ncl >= 0 && ncl < m && !visited[nrw][ncl] && grid[nrw][ncl] == 1)
             {
+                // because for 1 unit of time, each rotten orange can rote a all its nighbor at only 1 unit of time
                 q.push({{nrw, ncl}, t + 1});
-                visited[nrw][ncl] = 2;
+                visited[nrw][ncl] = true;
             }
         }
     }
@@ -69,7 +71,7 @@ int orangesRotting(vector<vector<int>> &grid)
     {
         for (int j = 0; j < m; j++)
         {
-            if (visited[i][j] != 2 && grid[i][j] == 1)
+            if (!visited[i][j] && grid[i][j] == 1)
                 return -1;
         }
     }

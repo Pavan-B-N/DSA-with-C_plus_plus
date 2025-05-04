@@ -8,22 +8,22 @@ using namespace std;
 bool detect(int src, vector<int> adjacencyList[], vector<bool> &visited)
 {
 
-    queue<pair<int, int>> q;
+    queue<pair<int, int>> q;// node, parent
 
     q.push({src, -1});
     visited[src] = true;
 
     while (!q.empty())
     {
-        int node = q.front().first;
+        int curr = q.front().first;
         int parent = q.front().second;
         q.pop();
 
-        for (int adjacentNode : adjacencyList[node])
+        for (int adjacentNode : adjacencyList[curr])
         {
             if (!visited[adjacentNode])
             {
-                q.push({adjacentNode, node});
+                q.push({adjacentNode, curr});
                 visited[adjacentNode] = true;
             }
             else if (parent != adjacentNode)
@@ -38,6 +38,14 @@ bool detect(int src, vector<int> adjacencyList[], vector<bool> &visited)
     return false;
 }
 
+// O(V + E)
+// Time Complexity: O(V + E)
+// isCycle O(V)
+// detect or bfs = O(V + E)
+//  both BFS and DFS have a time complexity of: O(V + E)
+// Adjacency List	✅ O(V + E)
+// Adjacency Matrix	❌ O(V²)
+// So avoid adjacency matrix unless you're forced to or the graph is dense.
 bool isCycle(int V, vector<int> adjacencyList[])
 {
     vector<bool> visited(V, false);

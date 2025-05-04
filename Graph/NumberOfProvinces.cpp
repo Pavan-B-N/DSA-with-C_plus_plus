@@ -80,3 +80,61 @@ void bfs(int startIndex, vector<int> adj[], vector<bool> &visited)
         }
     }
 }
+
+// ------------------------------------
+// AdjMatrix Representation
+int findCircleNum(vector<vector<int>>& AdjMatrix) {
+    int n=AdjMatrix.size();
+    int provinence=0;
+    vector<bool> visited(n,false);
+
+    for(int i=0;i<n;i++){
+        if(!visited[i]){
+            bfs(i,AdjMatrix,visited);
+            provinence++;
+        }
+    }
+    return provinence;
+}
+
+void bfs(int si,vector<vector<int>>& AdjMatrix,vector<bool> &visited){
+    queue<int> q;
+    int n=AdjMatrix.size();
+    q.push(si);
+    visited[si]=true;
+    while(!q.empty()){
+        int ci=q.front();
+        q.pop();           
+
+        for(int i=0;i<n;i++){
+            if(AdjMatrix[ci][i]==1  && !visited[i]){
+                visited[i]=true;
+                q.push(i);
+            }
+        }
+    }
+}
+
+// using dfs
+int findCircleNum(vector<vector<int>>& AdjMatrix) {
+    int n=AdjMatrix.size();
+    int provinces=0;
+    vector<bool> visited(n,false);
+    for(int i=0;i<n;i++){
+        if(!visited[i]){
+            dfs(i,AdjMatrix,visited);
+            provinces++;
+        }
+    }
+    return provinces;
+}
+
+void dfs(int currentVertex,vector<vector<int>>& AdjMatrix,vector<bool> &visited){
+    int n=AdjMatrix.size();
+    visited[currentVertex]=true;
+    for(int i=0;i<n;i++){
+        if(AdjMatrix[currentVertex][i]==1 && !visited[i]){
+            dfs(i,AdjMatrix,visited);
+        }
+    }
+}

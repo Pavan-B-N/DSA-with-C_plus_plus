@@ -1,5 +1,5 @@
+// https://leetcode.com/problems/reverse-words-in-a-string/description/
 #include <iostream>
-#include <vector>
 using namespace std;
 
 string reverseWords(string s) {
@@ -22,12 +22,4 @@ string reverseWords(string s) {
     }
 
     return ans.substr(1);
-}
-
-int main()
-{
-    string str = "    the sky is   blue ";
-    str = reverseWords(str);
-    cout << str;
-    return 0;
 }
