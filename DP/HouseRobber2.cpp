@@ -52,7 +52,7 @@ long long int houseRobberDP(vector<int>& valueInHouse) {
     int n = valueInHouse.size();
     if (n == 1) return valueInHouse[0]; // Single house case
     // Exclude the last house
-      vector<int> dp1(n, -1);
+    vector<int> dp1(n, -1);
     int excludeLast = maxMoneyCanRobDP(valueInHouse, n - 2, false,dp1);
     // Exclude the first house
     vector<int> dp2(n, -1);

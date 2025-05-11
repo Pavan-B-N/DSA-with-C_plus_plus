@@ -1,89 +1,81 @@
-/*
-------------
-X Q X X
-X X X Q
-Q X X X
-X X Q X
-------------
-
-------------
-X X Q X
-Q X X X
-X X X Q
-X Q X X
-------------
-
-Toatl Number of queens are : 2
-*/
-
+// https://leetcode.com/problems/n-queens/
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
-void displayboard(vector<vector<bool>> &board){
-    cout<<"------------"<<endl;
-    for(auto row:board){
-        for(auto ele:row){
-            char temp=ele ? 'Q' : 'X';
-            cout<<temp<<" ";
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        vector<string> board(n);
+        string rowInBoard(n,'.');
+        for(int i=0;i<n;i++){
+            // by default no queens are placed
+            board[i]=rowInBoard;
         }
-        cout<<endl;
-    }
-    cout<<"------------"<<endl<<endl;
-}
-bool isSafe(vector<vector<bool>> board, int row,int col){
-    //chech vertical row
-    for(int i=0;i<row;i++){
-        if(board[i][col]){
-            return false;
-        }
-    }
 
-    //diagonal left
-    int maxLeft = min(row, col); 
-    for (int i = 1; i <= maxLeft; i++) {
-        if (board[row - i][col - i]) {
-            return false;
-        }
-    }
+        solve(0,board,ans,n);
 
-    //diagonal right
-    int maxRight = min(row, static_cast<int>(board.size() - 1 - col));
-    for (int i = 1; i <= maxRight; i++) {
-        if (board[row - i][col + i]) {
-            return false;
+        return ans;
+    }
+    void solve(int col,vector<string> &board,vector<vector<string>> &ans,int n){
+        if(col==n){
+            ans.push_back(board);
+            return;
+        }
+
+        for(int row=0;row<n;row++){
+            if(isSafe(row,col,board,n)){
+                board[row][col]='Q';
+                solve(col+1,board,ans,n);
+                board[row][col]='.';
+            }
         }
     }
 
-    return true;
-}
-// int queens(bool** board, int row)
-// Time complexity = o(N!)
-int queens(vector<vector<bool>> board, int row){
-    if(row==board.size()){
-        displayboard(board);
-        return 1;
-    }
-    int count=0;
-    // placing the queeen and checking for every row and col
-    for(int col=0;col<board.size();col++){
-        // place the queen only if it is safe
-        if(isSafe(board,row,col)){
-            board[row][col]=true;
-            count+=queens(board,row+1);
-            //revert changes while backtracking
-            board[row][col]=false;
+    bool isSafe(int row,int col,vector<string> &board,int n){
+        // out of 8 directions
+        // top and down is not required as we are visiting each column exactly onec
+        // right, right top diagonal and right bottom diagonal also not required as we haven't visited tehm yet
+        // so we just need to check 3 directions out of 8
+        // left, left top diagonal, left bottom diagonal
+        int actualRow=row;
+        int actualCol=col;
+
+        // left top diagonal (row--,col--)
+        while(row>=0 && col>=0){
+            if(board[row][col]=='Q'){
+                // queen attacks
+                return false;
+            }
+            row--;
+            col--;
         }
+
+        row=actualRow;
+        col=actualCol;
+        // left (row, col--)
+        while(col>=0){
+            if(board[row][col]=='Q'){
+                // queen attacks
+                return false;
+            }
+            col--;
+        }
+
+        row=actualRow;
+        col=actualCol;
+        // left botoom diagonal(row++,col--)
+        while(row<n && col>=0){
+            if(board[row][col]=='Q'){
+                // queen attacks
+                return false;
+            }
+            row++;
+            col--;
+        }
+
+        return true;
     }
-    return count;
-}
-
-int main(int argc, char const *argv[])
-{
-    int boardSize=4;// or number of queens need to be placed
-    vector<vector<bool>> board(boardSize, vector<bool>(boardSize, false));
-
-    cout<<"Toatl Number of queens are : "<<queens(board,0);
-    return 0;
-}
+    
+};

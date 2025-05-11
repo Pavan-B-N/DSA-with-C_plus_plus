@@ -2,11 +2,29 @@
 subsets of s="abc"
 subsets=[a,b,c,ab,ac,bc,abc,""]
 */
+// https://leetcode.com/problems/subsets/
 
 #include <iostream>
 #include <vector>
 #include <string>
 using namespace std;
+    
+void printVec(vector<vector<int>> vec){
+    for(auto &arr:vec){
+        cout<<"[ ";
+        for(auto &ele:arr){
+            cout<<ele<<",";
+        }
+        cout<<" ]";
+    }
+}
+void printArr(vector<int> &arr){
+    for(auto ele:arr){
+        cout<<ele<<" ";
+    }
+    cout<<endl;
+}
+
 // processed and unprocessed string
 void subsets(string p,string up){
     if(up==""){
@@ -25,53 +43,66 @@ void subsetsIncludingAscii(string p,string up){
         cout<<p<<" ";
         return;
     }
-    //consider it
+    //pick
     char ch=up[0];
     subsetsIncludingAscii(p+ch,up.substr(1,up.size()));
 
-    //ignore it
+    //not pick
     subsetsIncludingAscii(p,up.substr(1,up.size()));
 
-    //ascii
+    //pick ascii
     subsetsIncludingAscii(p+to_string((int)ch),up.substr(1,up.size()));
 }
 
-void subsetsOfArray(vector<int> p,vector<int> up,vector<vector<int>> &res){
-    if(up.size()==0){
-        res.push_back(p);
+void printSubSequences(vector<int> &arr,int n,int index,vector<int> &subSequence){
+    if(index==n){
+        printArr(subSequence);
         return;
     }
-    //consider it
-    int ele=up[0];
-    //ignore it
-    subsetsOfArray(p,vector<int>(up.begin() + 1, up.end()),res);
-    //consider it
-    p.push_back(ele);
-    subsetsOfArray(p,vector<int>(up.begin() + 1, up.end()),res);
 
+    //pick
+    subSequence.push_back(arr[index]);
+    printSubSequences(arr,n,index+1,subSequence); 
+    // not pick
+    subSequence.pop_back();
+    printSubSequences(arr,n,index+1,subSequence);
 }
 
-vector<vector<int>> subsetsOfArray(vector<int> arr){
-    vector<vector<int>> res;
-    subsetsOfArray({},arr,res);
+// number of possible subsets = 2^N
+// T.C = 2^N
+// S.C = stack (N) + res (2^N)
+// Subsets (contiguos or Non-contiguos,order is not maintained) == SubSequences (contiguos or Non-contiguos,order is maintained)
+void findSubsets(vector<int>& nums, vector<vector<int>>& res,vector<int>& subset, int index) {
+    if (index == nums.size()) {
+        res.push_back(subset);
+        return;
+    }
+
+    // not pick
+    findSubsets(nums, res, subset, index + 1);
+
+    // pick
+    subset.push_back(nums[index]);
+    findSubsets(nums, res, subset, index + 1);
+    // Backtrack to remove the current element and restore state
+    subset.pop_back();
+}
+
+vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> res;// subsets
+    vector<int> subset;// or subsequence
+    findSubsets(nums, res, subset, 0);
     return res;
 }
-void printVec(vector<vector<int>> vec){
-    for(auto &arr:vec){
-        cout<<"[ ";
-        for(auto &ele:arr){
-            cout<<ele<<",";
-        }
-        cout<<" ]";
-    }
-}
+
+
 int main(){
     string str="abc";
     // subsets("",str);
     // subsetsIncludingAscii("",str);
 
     vector<int> arr={1,2,3};
-    vector<vector<int>> res=subsetsOfArray(arr);
+    vector<vector<int>> res=subsets(arr);
     printVec(res);
     return 0;
 }

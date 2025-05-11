@@ -20,6 +20,7 @@ int maxSumOfNonAdjacentElements(vector<int> &arr,int index){
     if(index<0){
         return 0;
     }
+    // subsequence problem method
     int pick=arr[index]+maxSumOfNonAdjacentElements(arr,index-2);
     int notPick=0+maxSumOfNonAdjacentElements(arr,index-1);
     int maxSum=max(pick,notPick);
