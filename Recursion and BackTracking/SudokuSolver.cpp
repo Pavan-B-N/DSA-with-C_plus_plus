@@ -1,113 +1,67 @@
-/*
-Write a program to solve a Sudoku puzzle by filling the empty cells.
-
-A sudoku solution must satisfy all of the following rules:
-
-Each of the digits 1-9 must occur exactly once in each row.
-Each of the digits 1-9 must occur exactly once in each column.
-Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
-The '.' character indicates empty cells.
-*/
+// https://leetcode.com/problems/sudoku-solver/
 #include <iostream>
 #include <vector>
-#include <cmath>
 using namespace std;
 
-void display(const vector<vector<int>>& board) {
-    for (const auto& row : board) {
-        for (int num : row) {
-            cout << num << " ";
-        }
-        cout << endl;
+class Solution
+{
+public:
+    void solveSudoku(vector<vector<char>> &board)
+    {
+        solve(board);
     }
-}
+    bool solve(vector<vector<char>> &board)
+    {
+        for (int row = 0; row < 9; row++)
+        {
+            for (int col = 0; col < 9; col++)
+            {
+                // check for not filled cell
+                if (board[row][col] == '.')
+                {
+                    // if the cell is not filled, try to fill the cell with the numbers 1-9
+                    for (char val = '1'; val <= '9'; val++)
+                    {
+                        if (isValid(row, col, board, val))
+                        {
+                            board[row][col] = val;
+                            // once we filled the value we need to check if we can fill the remaining once from this board
+                            if (solve(board))
+                            {
+                                return true;
+                            }
 
-bool isSafe(const vector<vector<int>>& board, int row, int col, int num) {
-    int n = board.size();
-    // Check the row
-    for (int i = 0; i < n; ++i) {
-        if (board[row][i] == num) {
-            return false;
-        }
-    }
-    
-    // Check the column
-    for (int i = 0; i < n; ++i) {
-        if (board[i][col] == num) {
-            return false;
-        }
-    }
-    
-    // Check the subgrid
-    int sqrtN = sqrt(n);
-    int startRow = row - row % sqrtN;
-    int startCol = col - col % sqrtN;
-    for (int i = 0; i < sqrtN; ++i) {
-        for (int j = 0; j < sqrtN; ++j) {
-            if (board[i + startRow][j + startCol] == num) {
-                return false;
+                            // we failed to fill the entire board based on previous decision so backtrack the changes
+                            board[row][col] = '.';
+                        }
+                    }
+                    return false;
+                }
             }
         }
-    }
-    return true;
-}
-
-bool solve(vector<vector<int>>& board) {
-    int n = board.size();
-    int row = -1, col = -1;
-
-    // Find an empty cell
-    bool emptyLeft = false;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (board[i][j] == 0) {
-                row = i;
-                col = j;
-                emptyLeft = true;
-                break;
-            }
-        }
-        if (emptyLeft) {
-            break;
-        }
-    }
-
-    // If there are no empty cells left, puzzle is solved
-    if (!emptyLeft) {
+        // none of the cells is empty
         return true;
     }
 
-    // Backtrack
-    for (int num = 1; num <= 9; ++num) {
-        if (isSafe(board, row, col, num)) {
-            board[row][col] = num;
-            if (solve(board)) {
-                return true;
-            }
-            board[row][col] = 0; // Backtrack
+    bool isValid(int row, int col, vector<vector<char>> &board, char val)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            // check for the row
+            if (board[row][i] == val)
+                return false;
+
+            // check for col
+            if (board[i][col] == val)
+                return false;
+
+            // check for subBoard
+            int subBoardRow = (row / 3) * 3;
+            int subBoardCol = (col / 3) * 3;
+
+            if (board[subBoardRow + i / 3][subBoardCol + i % 3] == val)
+                return false;
         }
+        return true;
     }
-    return false;
-}
-
-int main() {
-    vector<vector<int>> board = {
-        {3, 0, 6, 5, 0, 8, 4, 0, 0},
-        {5, 2, 0, 0, 0, 0, 0, 0, 0},
-        {0, 8, 7, 0, 0, 0, 0, 3, 1},
-        {0, 0, 3, 0, 1, 0, 0, 8, 0},
-        {9, 0, 0, 8, 6, 3, 0, 0, 5},
-        {0, 5, 0, 0, 9, 0, 6, 0, 0},
-        {1, 3, 0, 0, 0, 0, 2, 5, 0},
-        {0, 0, 0, 0, 0, 0, 0, 7, 4},
-        {0, 0, 5, 2, 0, 6, 3, 0, 0}
-    };
-
-    if (solve(board)) {
-        display(board);
-    } else {
-        cout << "Cannot solve" << endl;
-    }
-
-    return 0;
-}
+};

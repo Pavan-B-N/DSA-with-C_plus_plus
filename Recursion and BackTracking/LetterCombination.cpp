@@ -9,7 +9,7 @@ so each number has 3 letter
 so 3*9 = 27 -1 = 26
 hence 9 has only two letters
 according to key 2=abc 3=def 
-output = ["ab","ae","af","bd","be","bf","cd","ce","cf"]
+output = ["ad","ae","af","bd","be","bf","cd","ce","cf"]
 */
 #include <iostream>
 #include <string>
