@@ -39,3 +39,41 @@ int maxProfit(vector<int> &prices)
     }
     return totalProfit;
 }
+
+// memoization
+int maxProfit(vector<int> &prices)
+{
+    int n = prices.size();
+    // dp[index][buy] = max profit from day index with buy status
+    // buy = [1,0];// 1 means allowed to buy
+    vector<vector<int>> dp(n, vector<int>(2, -1));
+    return getMaxProfit(0, 1, prices, dp); // buy = 1 means we can buy
+}
+
+int getMaxProfit(int index, int buy, vector<int> &prices, vector<vector<int>> &dp)
+{
+    if (index == prices.size())
+        return 0;
+
+    if (dp[index][buy] != -1)
+        return dp[index][buy];
+
+    int profit;
+    if (buy)
+    {
+        // Option to buy or skip
+        int buyNow = -prices[index] + getMaxProfit(index + 1, 0, prices, dp);
+        int skipBuy = getMaxProfit(index + 1, 1, prices, dp);
+        profit = max(buyNow, skipBuy);
+    }
+    else
+    {
+        // Option to sell or skip
+        int sellNow = prices[index] + getMaxProfit(index + 1, 1, prices, dp);
+        int skipSell = getMaxProfit(index + 1, 0, prices, dp);
+        profit = max(sellNow, skipSell);
+    }
+
+    dp[index][buy] = profit;
+    return profit;
+}
