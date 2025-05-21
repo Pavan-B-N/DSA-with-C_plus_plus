@@ -1,12 +1,12 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-int partition(vector<int> &arr,int l,int h){
+int partition(vector<int> &arr,int low,int high){
     //pivot can be any random element in the array between the range l,h
-    int pivot=arr[l];
+    int pivot=arr[low];
 
-    int i=l;
-    int j=h;
+    int i=low;
+    int j=high;
 
     while(i<j){
         while(arr[i]<pivot){
@@ -23,11 +23,11 @@ int partition(vector<int> &arr,int l,int h){
     }
     return j;
 }
-void quickSort(vector<int> &arr,int l,int h){
-    if(l<h){
-        int j=partition(arr,l,h);
-        quickSort(arr,l,j);
-        quickSort(arr,j+1,h);
+void quickSort(vector<int> &arr,int low,int high){
+    if(low<high){
+        int pivot=partition(arr,low,high);
+        quickSort(arr,low,pivot);
+        quickSort(arr,pivot+1,high);
     }
 }
 void quickSort(vector<int> &arr){

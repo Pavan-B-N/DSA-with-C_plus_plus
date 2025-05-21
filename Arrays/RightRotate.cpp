@@ -8,23 +8,14 @@ Output: [5,6,7,1,2,3,4]
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
-void reverseArray(vector<int> &nums, int start, int end)
-{
-    while (start < end)
-    {
-        int temp = nums[start];
-        nums[start] = nums[end];
-        nums[end] = temp;
-        start++;
-        end--;
-    }
-}
+
 void rotate(vector<int> &nums, int k)
 {
     int n = nums.size();
     k %= n;
-    reverseArray(nums, 0, n - 1);
-    reverseArray(nums, 0, k - 1);
-    reverseArray(nums, k, n - 1);
+    reverse(nums.begin(), nums.end());
+    reverse(nums.begin(), nums.begin() + k);
+    reverse(nums.begin() + k, nums.end());
 }

@@ -18,23 +18,29 @@ Output: 2
 #include <vector>
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    int majorityElement(vector<int>& nums) {
+    int majorityElement(vector<int> &nums)
+    {
         // moore's voting algorithm
-       int freq=0, ans=0;
-       for(int ele:nums){
-        if(freq==0){
-            ans=ele;
-        }
+        int freq = 0, ans = 0;
+        for (int ele : nums)
+        {
+            if (freq == 0)
+            {
+                ans = ele;
+            }
 
-        if(ans==ele){
-            freq++;
-        }else{
-            freq--;
+            if (ans == ele)
+            {
+                freq++;
+            }
+            else
+            {
+                freq--;
+            }
         }
-       }
-       return ans;
-            
+        return ans;
     }
 };

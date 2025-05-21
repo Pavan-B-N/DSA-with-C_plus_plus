@@ -21,7 +21,7 @@ void findElements(int arr[], int n, int k) {
     int i=0;
     while(i<n){
         int count=1;
-        while(arr[i]==arr[i+1]){
+        while(i+1 < n && arr[i]==arr[i+1]){
             i++;
             count++;
         }

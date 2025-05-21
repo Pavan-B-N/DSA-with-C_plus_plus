@@ -15,6 +15,7 @@ Input: s = "LVIII"
 Output: 58
 
 */
+// https://leetcode.com/problems/roman-to-integer/
 
 #include <iostream>
 using namespace std;
@@ -41,14 +42,7 @@ int valueOfRoman(char ch)
         return 0;
     }
 }
-/*
-traverse in reverse order
-if(current>pre){
-    result+=current;
-}else{
-    result-=current;
-}
-*/
+
 int romanToInteger(string s)
 {
     int result = 0;

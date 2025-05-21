@@ -5,34 +5,36 @@
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
-    vector<vector<int>> arr = {
-        {1, 4}, {6, 8}, {9, 10}, {2, 5}, {7, 10}
-    };
+class Solution
+{
+public:
+    vector<vector<int>> merge(vector<vector<int>> &arr)
+    {
+        sort(arr.begin(), arr.end());
 
-    sort(arr.begin(), arr.end());
+        vector<vector<int>> res;
+        int n = arr.size();
 
-    vector<vector<int>> res;
-    int n = arr.size();
-    int i = 0;
+        for (int i = 0; i < n; i++)
+        {
+            int start = arr[i][0];
+            int end = arr[i][1];
 
-    while (i < n) {
-        int start = arr[i][0];
-        int end = arr[i][1];
+            // Merge intervals as long as they overlap
+            while (i + 1 < n && arr[i + 1][0] <= end)
+            {
+                end = max(end, arr[i + 1][1]);
+                i++;
+            }
 
-        // Merge intervals as long as they overlap
-        while (i + 1 < n && arr[i + 1][0] <= end) {
-            end = max(end, arr[i + 1][1]);
-            i++;
+            res.push_back({start, end});
         }
 
-        res.push_back({start, end});
-        i++; // move to next non-overlapping interval
-    }
+        for (const auto &interval : res)
+        {
+            cout << interval[0] << ", " << interval[1] << endl;
+        }
 
-    for (const auto& interval : res) {
-        cout << interval[0] << ", " << interval[1] << endl;
+        return res;
     }
-
-    return 0;
-}
+};

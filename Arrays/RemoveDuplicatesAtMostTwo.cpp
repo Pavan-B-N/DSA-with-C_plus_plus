@@ -17,7 +17,7 @@ int removeDuplicates(vector<int> &nums)
 {
     int n = nums.size();
     int j = 0; // pointer to add elements
-    int i = 0; // pointer to interate the array
+    int i = 0; // pointer to iterate the array
 
     while (i < n)
     {

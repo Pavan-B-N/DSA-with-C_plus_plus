@@ -17,17 +17,17 @@ using namespace std;
 
 int majorityElement(vector<int>& nums) {
     int n = nums.size();
-    map<int,int> m;
+    map<int,int> freq;
     //count
     for(auto &num:nums){
-        m[num]++;
+        freq[num]++;
     }
     //print map
-    for(auto &pair:m){
+    for(auto &pair:freq){
         cout<<pair.first<<":"<<pair.second<<endl;
     }
     n = n/2;
-    for(auto x: m){
+    for(auto x: freq){
         if(x.second > n){
             return x.first;
         }

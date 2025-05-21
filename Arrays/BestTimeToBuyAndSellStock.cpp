@@ -28,7 +28,7 @@ using namespace std;
 
 int maxProfit(vector<int> &prices)
 {
-    int min_price = prices[0];
+    int min_price = prices[0];// remembering the past means dp
     int max_profit = 0;
 
     for (int i = 1; i < prices.size(); ++i)

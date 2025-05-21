@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/triangle/
 #include <iostream>
 #include <vector>
+#include <climits>
 using namespace std;
 
 // memoization
