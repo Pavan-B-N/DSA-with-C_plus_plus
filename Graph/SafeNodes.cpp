@@ -9,6 +9,8 @@ Return an array containing all the safe nodes of the graph. The answer should be
 A node which is not a part of cycle or not connected to cycle is a safe node.
 */
 // https://leetcode.com/problems/find-eventual-safe-states/
+// FindEventualSafeStates.cpp
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -51,7 +53,7 @@ class Solution {
                 }
             }
     
-            visited[node] = true;
+            // visited[node] = true;
             pathVisited[node]=false;
             safeNodes[node] = true;
             return false;
