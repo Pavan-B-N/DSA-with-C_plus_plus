@@ -1,23 +1,12 @@
 #include <iostream>
-#include "BinarySearchTree.h"
+#include "Node.h"
 using namespace std;
 
-// g++ .\CountTotalNumberOfNodes.cpp .\BinarySearchTree.cpp
+// time complexity = O(N)
+// space complexity = O(H), where H is the max_height of BT
 int countNodes(Node *root){
     if(root==nullptr){
         return  0;
     }
     return 1+countNodes(root->left)+countNodes(root->right);
-}
-
-int main(){
-    BST bst;// from the header
-    bst.insert(10);
-    bst.insert(20);
-    bst.insert(30);
-    bst.insert(40);
-
-    int nodes=countNodes(bst.root);
-    cout<<"Total Number of Nodes is "<<nodes<<endl;
-    return 0;
 }

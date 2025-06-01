@@ -1,37 +1,32 @@
 // https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
 #include <climits>
 #include <algorithm>
+#include "TreeNode.h"
 using namespace std;
-class TreeNode
+
+class Solution
 {
 public:
-    int val;
-    TreeNode *left, *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
-
-int ans = INT_MIN;
-int maxPathSum(TreeNode *root)
-{
-    helper(root);
-    return ans;
-}
-
-int helper(TreeNode *root)
-{
-    if (root == nullptr)
+    int maxPathSum(TreeNode *root)
     {
-        return 0;
+        int ans = INT_MIN; // tree can contains -ve values os we need cannot initialize to zero
+        helper(root, ans);
+        return ans;
     }
 
-    int left = helper(root->left);
-    int right = helper(root->right);
-    left = max(0, left);
-    right = max(0, right);
-    int pathsum = left + right + root->val;
+    int helper(TreeNode *root, int &ans)
+    {
+        if (root == nullptr)
+        {
+            return 0;
+        }
 
-    ans = max(ans, pathsum);
-    return max(left, right) + root->val;
-}
+        int left = helper(root->left, ans);
+        int right = helper(root->right, ans);
+        left = max(0, left); // replacing INT_MIN with 0
+        right = max(0, right);
+        int pathsum = left + right + root->val;
+        ans = max(ans, pathsum);
+        return max(left, right) + root->val;
+    }
+};

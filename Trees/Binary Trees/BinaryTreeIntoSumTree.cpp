@@ -26,11 +26,8 @@ Explanation:
       0     0       0    0
 
 */
-class Node{
-public:
-    Node *left,*right;
-    int data;
-};
+#include "Node.h"
+
 int toSumTree(Node *root){
     if(!root){
         return 0;

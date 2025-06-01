@@ -1,36 +1,28 @@
-/*
-       1
-    /     \
-   2       3
-  /  \    /   \
-4    5  6      7
-
-Top view will be: 4 2 1 3 7
-*/
-
-// https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1
+// https://www.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1
 
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <map>
 #include "Node.h"
-
 using namespace std;
-// top view work with vertical order traversal
-// Note: we should not sort the vector in the level unlike we have done in level order traversal because we need to maintain its original position and sorting will alter this
-// we have done sorting in vertical order traversal because they have asking it
-class Solution {
-  public:
-    vector<int> topView(Node *root) {
-        vector<vector<int>> verticalOrder=verticalTraversal(root);
-         vector<int> ans;
-         for(auto vec:verticalOrder){
-             ans.push_back(vec[0]);
-         }
-         return ans;
+
+class Solution
+{
+public:
+    vector<int> bottomView(Node *root)
+    {
+        // Your Code Here
+        vector<vector<int>> verticalOrder = verticalTraversal(root);
+        vector<int> ans;
+        for (auto vec : verticalOrder)
+        {
+            int n = vec.size() - 1;
+            ans.push_back(vec[n]);
+        }
+        return ans;
     }
-    
+
     vector<vector<int>> verticalTraversal(Node *root)
     {
         if (!root)
@@ -63,7 +55,6 @@ class Solution {
             for (auto &it : levelMap)
             {
                 auto &vec = it.second;
-                // sorting of vector is removed from here
                 verticalMap[it.first].insert(verticalMap[it.first].end(), vec.begin(), vec.end());
             }
         }

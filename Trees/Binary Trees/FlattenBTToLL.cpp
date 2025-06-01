@@ -6,65 +6,28 @@ The "linked list" should use the same TreeNode class where the right child point
 The "linked list" should be in the same order as a pre-order traversal of the binary tree.
 */
 
+// https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/
+
 #include <iostream>
 #include <queue>
+#include "TreeNode.h"
 using namespace std;
 
-// definition of TreeNode is given in leetcode
-class TreeNode
-{
+class Solution {
 public:
-    int val;
-    TreeNode *left, *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    TreeNode* prev=nullptr;
+    void flatten(TreeNode* root) {
+        if(root==nullptr){
+            return;
+        }
+
+        // reversed preorder
+        flatten(root->right);
+        flatten(root->left);
+
+        root->right = prev;
+        root->left = nullptr;
+        prev=root;
+
+    }
 };
-
-// using queues
-void flatten(TreeNode *root)
-{
-    queue<TreeNode *> queue;
-    getBTQueue(root, queue);
-
-    TreeNode *dummy = new TreeNode(0);
-    TreeNode *current = dummy;
-
-    while (!queue.empty())
-    {
-        TreeNode *nextNode = queue.front();
-        queue.pop();
-
-        current->left = nullptr;
-        current->right = nextNode;
-        current = nextNode;
-    }
-    root = dummy->right;
-}
-// usig preorder traversal with queue
-void getBTQueue(TreeNode *root, queue<TreeNode *> &queue)
-{
-    if (root == nullptr)
-    {
-        return;
-    }
-    queue.push(root);
-    getBTQueue(root->left, queue);
-    getBTQueue(root->right, queue);
-}
-
-// efficient solution
-TreeNode *prev = nullptr;
-void flatten(TreeNode *node)
-{
-    if (!node)
-    {
-        return;
-    }
-    flatten(node->right);
-    flatten(node->left);
-
-    node->right = ::prev;
-    node->left = nullptr;
-    ::prev = node;
-}

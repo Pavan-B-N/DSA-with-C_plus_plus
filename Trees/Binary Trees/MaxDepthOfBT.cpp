@@ -7,18 +7,11 @@ A binary tree's maximum depth is the number of nodes along the longest path from
 // https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
 #include <iostream>
 #include <algorithm>
+#include "TreeNode.h"
 using namespace std;
 
-// definition of TreeNode is given in leetcode
-class TreeNode{
-public:
-    int val;
-    TreeNode *left,*right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
-
+// time complexity = o(n)
+// space complexity = o(n) = auxillary stack space
 int maxDepth(TreeNode* root) {
     if(root==nullptr){
         return 0;

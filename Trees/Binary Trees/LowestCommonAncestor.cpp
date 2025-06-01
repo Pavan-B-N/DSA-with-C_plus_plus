@@ -1,18 +1,8 @@
 // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 
 #include <iostream>
+#include "TreeNode.h"
 using namespace std;
-
-// definition of TreeNode is given in leetcode
-class TreeNode
-{
-public:
-    int val;
-    TreeNode *left, *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
 
 TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
 {

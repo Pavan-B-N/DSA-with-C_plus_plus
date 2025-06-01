@@ -11,18 +11,9 @@ Output: [[3],[20,9],[15,7]]
 #include <iostream>
 #include <vector>
 #include <queue>
+#include "TreeNode.h"
 using namespace std;
 
-// definition of TreeNode is given in leetcode
-class TreeNode
-{
-public:
-    int val;
-    TreeNode *left, *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
 /*
 we can also modify the queue itself 
 normal = add in front and remove from back
@@ -38,7 +29,7 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
 
     queue<TreeNode*> queue;
     queue.push(root);
-    //bfs
+    //regular BFS or level order traversal of BT
     while(!queue.empty()){
         vector<int> currentLevelList;
         int levelSize=queue.size();
@@ -56,6 +47,8 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         }
         result.push_back(currentLevelList);
     }
+
+
     //reverse only the odd level list
     for(int i=1;i<result.size();i+=2){
         reverse(result[i].begin(),result[i].end());

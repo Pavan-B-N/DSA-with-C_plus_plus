@@ -24,17 +24,8 @@ Mirror tree will be:
 */
 #include <iostream>
 #include <algorithm>
+#include "TreeNode.h"
 using namespace std;
-
-// definition of TreeNode is given in leetcode
-class TreeNode{
-public:
-    int val;
-    TreeNode *left,*right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
 
 TreeNode *invertTree(TreeNode *root)
 {

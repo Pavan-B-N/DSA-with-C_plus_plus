@@ -8,17 +8,9 @@ Hence return [3, 14.5, 11].
 #include <iostream>
 #include <vector>
 #include <queue>
+#include "TreeNode.h"
 using namespace std;
 
-// definition of TreeNode is given in leetcode
-class TreeNode{
-public:
-    int val;
-    TreeNode *left,*right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
 // this is known as level order traversal or bfs of a binary tree
 vector<double> averageOfLevels(TreeNode *root){    
     vector<double> result;
