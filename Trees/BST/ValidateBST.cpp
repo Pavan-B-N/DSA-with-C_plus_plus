@@ -1,54 +1,54 @@
 #include <iostream>
 #include <vector>
-#include "BinarySearchTree.h"
+#include "TreeNode.h"
 #include <climits>
 using namespace std;
 
-// definition of TreeNode is given in leetcode
-class TreeNode{
+// efficient
+class Solution
+{
 public:
-    int val;
-    TreeNode *left,*right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    bool isValidBST(TreeNode *root)
+    {
+        // using long because root value can be upto INT_MAX
+        return isValidBST(root, LLONG_MIN, LLONG_MAX);
+    }
+
+    bool isValidBST(TreeNode *root, long long minValue, long long maxValue)
+    {
+        if (!root)
+        {
+            return true;
+        }
+
+        return (root->val < maxValue && root->val > minValue) && isValidBST(root->left, minValue, root->val) && isValidBST(root->right, root->val, maxValue);
+    }
 };
 
-
-// inorder of a binary tree is always in ascending order so bst can be validated using inorder
-void inorder(Node *root,vector<int> &nums){
-    if(root==nullptr){
-        return;
-    }
-    inorder(root->left,nums);
-    nums.push_back(root->value);
-    inorder(root->right,nums);
-}
-
-// o(n) space complexity
-bool isValidBST(Node *root){
-    vector<int> nums;
-    inorder(root,nums);
-    for(int i=0;i<(nums.size()-1);i++){
-        if(nums[i]>=nums[i+1]){
-            return false;
+// less efficient, but good one
+class Solution
+{
+public:
+    bool isValidBST(TreeNode *root)
+    {
+        vector<int> inorder;
+        getInorder(root, inorder);
+        for (int i = 0; i < inorder.size() - 1; i++)
+        {
+            if (inorder[i] >= inorder[i + 1])
+            {
+                return false;
+            }
         }
-    }
-    return true;
-}
-
-//o(1) space complexity
-bool isValidBST(TreeNode* root) {
-    return isValidBSTHelper(root);
-}
-bool isValidBSTHelper(TreeNode* root, long long minVal = LLONG_MIN, long long maxVal = LLONG_MAX) {
-    if (root == nullptr) {
         return true;
     }
 
-    if (root->val <= minVal || root->val >= maxVal) {
-        return false;
+    void getInorder(TreeNode *root, vector<int> &inorder)
+    {
+        if (!root)
+            return;
+        getInorder(root->left, inorder);
+        inorder.push_back(root->val);
+        getInorder(root->right, inorder);
     }
-
-    return isValidBSTHelper(root->left, minVal, root->val) && isValidBSTHelper(root->right, root->val, maxVal);
-}
+};

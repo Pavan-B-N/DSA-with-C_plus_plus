@@ -3,33 +3,58 @@ Given the root of a binary search tree, and an integer k, return the kth smalles
 */
 #include <iostream>
 #include <vector>
+#include "TreeNode.h"
 using namespace std;
 
-// definition of TreeNode is given in leetcode
-class TreeNode
+// efficient with o(1) space
+class Solution
 {
 public:
-    int val;
-    TreeNode *left, *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    int kthSmallest(TreeNode *root, int k)
+    {
+        return kthSmallestUsingInorder(root, k);
+    }
+
+    int kthSmallestUsingInorder(TreeNode *root, int &k)
+    {
+        if (root == nullptr)
+            return -1;
+
+        int left = kthSmallestUsingInorder(root->left, k);
+        if (left != -1)
+            return left;
+
+        k--;
+        if (k == 0)
+            return root->val;
+
+        return kthSmallestUsingInorder(root->right, k);
+    }
 };
 
-int kthSmallest(TreeNode* root, int k) {
-    if(root==nullptr){
-        return 0;
+class Solution
+{
+public:
+    // time complexity = O(N)
+    // space complexity = auxilary stack space = O(N)
+    int kthSmallest(TreeNode *root, int k)
+    {
+        if (root == nullptr)
+        {
+            return 0;
+        }
+        vector<int> nums;
+        inorder(root, nums);
+        return nums[k - 1];
     }
-    vector<int> nums;
-    inorder(root,nums);
-    return nums[k-1];
-}
-// inorder is in sorted form
-void inorder(TreeNode* root,vector<int> &nums){
-    if(root==nullptr){
-        return;
+    void inorder(TreeNode *root, vector<int> &nums)
+    {
+        if (root == nullptr)
+        {
+            return;
+        }
+        inorder(root->left, nums);
+        nums.push_back(root->val);
+        inorder(root->right, nums);
     }
-    inorder(root->left,nums);
-    nums.push_back(root->val);
-    inorder(root->right,nums);
-}
+};
