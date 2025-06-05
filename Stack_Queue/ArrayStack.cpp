@@ -33,7 +33,7 @@ public:
         }
         --top;
     }
-    // peek
+    // peek or top
     int peek()
     {
         return arr[top];

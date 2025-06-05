@@ -25,28 +25,3 @@ int main() {
 
     return 0;
 }
-
-/*
-// c program based
-void reverse(char *str){
-    stack<char> charStack;
-    for(int i=0;str[i]!='\0';i++){
-        charStack.push(str[i]);
-    }
-
-    for(int i=0;str[i]!='\0';i++){
-        int top=charStack.top();
-        charStack.pop();
-        str[i]=top;
-    }
-}
-
-int main(){
-    char str[]="Hello";
-    cout<<str<<endl;
-    reverse(str);
-    cout<<str<<endl;
-    return 0;
-}
-
-*/

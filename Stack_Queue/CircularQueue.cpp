@@ -13,6 +13,7 @@ public:
         front = rear = -1;
     }
 
+    // push
     void enqueue(int value) {
         if (isFull()) {
             cout << "Queue Overflow, Cannot perform enqueue operation\n";
@@ -28,6 +29,7 @@ public:
         arr[rear] = value;
     }
 
+    //pop
     void dequeue() {
         if (isEmpty()) {
             cout << "Queue Underflow, Cannot perform dequeue operation\n";

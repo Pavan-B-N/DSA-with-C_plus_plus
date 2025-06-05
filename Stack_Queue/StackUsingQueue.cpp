@@ -1,16 +1,20 @@
 /*
 Implement a Stack using two queues q1 and q2.
 */
+// https://leetcode.com/problems/implement-stack-using-queues/description/
+
+
 #include <iostream>
 #include <queue>
-
 using namespace std;
 
 // Push operation: O(N)
 // Pop operation: O(1)
-class Stack {
+class LLStack {
 private:
     queue<int> q1, q2;
+    // q1 acts as stack
+    // q2 is temp 
 
 public:
     // Function to push an element onto the stack.
@@ -58,6 +62,8 @@ public:
 };
 
 // using only one queue
+// Push operation: O(N)
+// Pop operation: O(1)
 class StackEfficient {
     queue<int> q;
 
@@ -90,23 +96,4 @@ public:
         return q.empty();
     }
 };
-int main() {
-    // Stack s;
-    StackEfficient s;
 
-    s.push(1);
-    s.push(2);
-    s.push(3);
-
-    cout << "Top element: " << s.top() << endl;
-
-    // s.pop();
-    // cout << "Top element after popping: " << s.top() << endl;
-
-    // s.push(4);
-    // cout << "Top element after pushing: " << s.top() << endl;
-
-    // cout << "Is stack empty? " << (s.empty() ? "Yes" : "No") << endl;
-
-    return 0;
-}
