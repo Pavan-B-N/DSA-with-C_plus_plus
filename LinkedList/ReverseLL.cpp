@@ -1,33 +1,41 @@
-#include <iostream>
-#include "SinglyLinkedList.h"
-using namespace std;
+// https://leetcode.com/problems/reverse-linked-list/
+/**
+ * Definition for singly-linked list.
 
-Node* inPlaceReversal(Node *head){
-    if(head->next==nullptr){
-        return head;
-    }
-    Node *previous=nullptr;
-    Node *current=head;
-    Node *next=head->next;
-    while(current!=nullptr){
-        current->next=previous;
-        previous=current;
-        current=next;
-        if(next!=nullptr){
-            next=next->next;
+ */
+
+struct ListNode
+{
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
+class Solution
+{
+public:
+    ListNode *reverseList(ListNode *head)
+    {
+        if (!head || head->next == nullptr)
+        {
+            return head;
         }
+        ListNode *prev = nullptr;
+        ListNode *curr = head;
+        ListNode *next = head->next;
+
+        while (curr != nullptr)
+        {
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+            if (next)   
+            {
+                next = next->next;
+            }
+        }
+        return prev;
     }
-    return previous;
-}
-
-int main(){
-    SinglyLinkedList list;
-    list.insertAtEnd(10);
-    list.insertAtEnd(20);
-    list.insertAtEnd(30);
-
-    list.head=inPlaceReversal(list.head);
-
-    list.display();
-    return 0;
-}
+};

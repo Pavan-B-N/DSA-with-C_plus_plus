@@ -1,32 +1,27 @@
-#include <iostream>
-#include "CircularLinkedList.h"
-using namespace std;
-// g++ .\CircularLinkedList.cpp .\MiddleOfLL.cpp -o .exe
-Node *middle(Node *head)
+// https://leetcode.com/problems/middle-of-the-linked-list/
+
+struct ListNode
 {
-    if(head==nullptr || head->next==nullptr){
-        return head;
-    }
-    Node *slow=head;
-    Node *fast=head;
-    do
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
+class Solution
+{
+public:
+    ListNode *middleNode(ListNode *head)
     {
-        slow = slow->next;
-        fast = fast->next->next;
-    } while (fast != nullptr && fast->next != nullptr && fast != head && fast->next != head);
-    
-    return slow;
-}
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while (fast != nullptr && fast->next != nullptr)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
 
-int main(){
-    CircularLinkedList list;
-    list.insertAtEnd(10);
-    list.insertAtEnd(20);
-    list.insertAtEnd(30);
-    list.insertAtEnd(40);
-
-    Node *mid=middle(list.head);
-    cout<<"Data: "<<(mid->data)<<endl;
-
-    return 0;
-}
+        return slow;
+    }
+};

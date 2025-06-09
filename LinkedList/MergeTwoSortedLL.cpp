@@ -1,44 +1,32 @@
-#include <iostream>
-#include "SinglyLinkedList.h"
-using namespace std;
-// https://leetcode.com/problems/merge-two-sorted-lists/submissions/1171239779/?envType=study-plan-v2&envId=top-interview-150
-/*
-Execution
- g++ .\SinglyLinkedList.cpp .\MergeTwoSortedLL.cpp -o .exe
-*/
-Node* mergeLL(Node *head1,Node *head2){
-    Node *dummy=new Node(0);
-    Node *tail=dummy;
-    while(head1!=nullptr && head2!=nullptr){
-        if((head1->data)<(head2->data)){
-            tail->next=head1;
-            head1=head1->next;
-        }else{
-            tail->next=head2;
-            head2=head2->next;
-        }
-        tail=tail->next;
-        
-    }
-    tail->next = (head1 != nullptr) ? head1 : head2;
-    return dummy->next;
-}
-
-int main()
+// https://leetcode.com/problems/merge-two-sorted-lists/
+struct ListNode
 {
-    SinglyLinkedList list1;
-    list1.insertAtEnd(2);
-    list1.insertAtEnd(4);
-    list1.insertAtEnd(6);
-    list1.display();
-
-    SinglyLinkedList list2;
-    list2.insertAtEnd(1);
-    list2.insertAtEnd(5);
-    list2.display();
-
-    SinglyLinkedList res;
-    res.head=mergeLL(list1.head,list2.head);
-    res.display();
-    return 0;
-}
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+class Solution {
+    public:
+        ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+              ListNode *head=new ListNode(0);
+                ListNode *tail=head;
+                while(list1!=nullptr && list2!=nullptr){
+                    if((list1->val)<(list2->val)){
+                        tail->next=list1;
+                        list1=list1->next;
+                    }else{
+                        tail->next=list2;
+                        list2=list2->next;
+                    }
+                    tail=tail->next;
+                }
+                if(list1!=nullptr){
+                    tail->next=list1;
+                }else{
+                    tail->next=list2;
+                }
+                return head->next;
+        }
+    };
