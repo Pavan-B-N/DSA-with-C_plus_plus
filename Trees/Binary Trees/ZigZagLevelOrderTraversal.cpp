@@ -11,6 +11,7 @@ Output: [[3],[20,9],[15,7]]
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <algorithm>
 #include "TreeNode.h"
 using namespace std;
 

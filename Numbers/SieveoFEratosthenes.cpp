@@ -18,15 +18,16 @@ public:
         for (int i = 2; i * i < n; ++i)
         {
             if (arr[i])
-            {
-                // All numbers less than i * i will have already been marked by smaller primes.
-                // Starting from 2 * i causes unnecessary marking of numbers that were already handled by smaller factors.
-                for (int j = i * i; j < n; j += i)
+            {   // marked as prime
+                // so mark, multiple of this number as not prime
+                for (int j = i * 2; j < n; j += i)
                 {
                     arr[j] = false;
                 }
             }
         }
+
+        // end of  Sieve of Eratosthenes
 
         int counter = 0;
         for (int i = 2; i < n; ++i)

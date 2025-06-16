@@ -4,6 +4,7 @@
 #include <vector>
 #include <stack>
 #include <climits>
+#include <algorithm>
 
 using namespace std;
 // O(N+K)

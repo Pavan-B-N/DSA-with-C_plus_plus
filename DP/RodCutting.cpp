@@ -1,7 +1,20 @@
 // https://www.naukri.com/code360/problems/rod-cutting-problem_800284?leftPanelTabValue=PROBLEM
+/*
+Problem statement
+Given a rod of length ‘N’ units. The rod can be cut into different sizes and each size has a cost associated with it. Determine the maximum cost obtained by cutting the rod and selling its pieces.
+
+Note:
+1. The sizes will range from 1 to ‘N’ and will be integers.
+
+2. The sum of the pieces cut should be equal to ‘N’.
+
+3. Consider 1-based indexing.
+*/
 #include <vector>
+#include <climits>
 using namespace std;
 
+// N = given rod length
 int getMaxProfit(int index, int N, vector<int> &price, vector<vector<int>> &dp)
 {
     if (index == 0)
@@ -16,7 +29,7 @@ int getMaxProfit(int index, int N, vector<int> &price, vector<vector<int>> &dp)
 
     int notPick = 0 + getMaxProfit(index - 1, N, price, dp);
     int pick = INT_MIN;
-    int rodLength = index + 1;
+    int rodLength = index + 1;// 1 based indexing
     if (rodLength <= N)
     {
         // infinite supply of an item

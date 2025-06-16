@@ -25,24 +25,24 @@ public:
             if (curr->child != NULL)
             {
                 // flatten the child nodes
+                // the node pointing to next node
                 Node *next = curr->next;
-                Node *newHead= flatten(curr->child);
-                curr->next=newHead;
-                newHead->prev = curr;
-                curr->child = NULL;
-
-                // find tail
-                while (curr->next != NULL)
+                // now find the child node tail
+                curr->next = flatten(curr->child);
+                // calling recursion because this could have childs as well so
+                // recursion will go inside it and check for any childs and
+                // flatten it and then it will come back
+                curr->child->prev = curr;
+                curr->child = nullptr;
+                // find tail and attach to next
+                while (curr->next != nullptr)
                 {
                     curr = curr->next;
                 }
-
-                // attach tail with next ptr
-                if (next != NULL)
+                if (next)
                 {
-                    //tail->next
-                    curr->next = next;
                     next->prev = curr;
+                    curr->next = next;
                 }
             }
             curr = curr->next;

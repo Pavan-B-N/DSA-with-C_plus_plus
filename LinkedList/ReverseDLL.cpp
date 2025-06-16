@@ -1,37 +1,42 @@
 #include <iostream>
-#include "DoublyLinkedList.h"
 using namespace std;
+// https://www.geeksforgeeks.org/problems/reverse-a-doubly-linked-list/1
 
-Node* reverseDoublyLinkedList(Node* head) {
-    Node* temp = nullptr;
-    Node* current = head;
-    
-    // Swap next and prev pointers of each node
-    while (current != nullptr) {
-        temp = current->prev;
-        current->prev = current->next;
-        current->next = temp;
-        current = current->prev; // Move to the next node
+class DLLNode
+{
+public:
+    int data;
+    DLLNode *next;
+    DLLNode *prev;
+
+    DLLNode(int val)
+    {
+        data = val;
+        this->next = NULL;
+        this->prev = NULL;
     }
-    
-    // Update the head pointer
-    if (temp != nullptr) {
-        head = temp->prev;
+};
+
+class Solution
+{
+public:
+    DLLNode *reverseDLL(DLLNode *head)
+    {
+        if (!head || head->next == NULL)
+        {
+            return head;
+        }
+        DLLNode *curr = head;
+        DLLNode *temp = nullptr;
+
+        while (curr != nullptr)
+        {
+            temp = curr->prev;
+            curr->prev = curr->next;
+            curr->next = temp;
+            curr = curr->prev;
+        }
+
+        return temp->prev;
     }
-    
-    return head;
-}
-
-int main(){
-    DoublyLinkedList list;
-    list.insertAtEnd(10);
-    list.insertAtEnd(20);
-    list.insertAtEnd(30);
-    list.insertAtEnd(40);
-    list.insertAtEnd(50);
-    list.display();
-
-    list.head=reverseDoublyLinkedList(list.head);
-    list.display();
-    return 0;
-}
+};

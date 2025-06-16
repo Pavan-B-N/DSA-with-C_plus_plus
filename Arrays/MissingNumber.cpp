@@ -1,63 +1,52 @@
-// given an unsorted array nums,return the smallest positive integer
-// you must implement an algorithm that runs in o(n) time and uses constant extra space
-// nums=[1,2,0] output=3
-// nums=[3,4,-1,1] output=2
-
-// ignore the elements that are -ve and greater than n
-
-#include <iostream>
+// https://leetcode.com/problems/missing-number/
+#include <vector>
 #include <algorithm>
+#include <numeric>
 using namespace std;
 
-void cyclicsort(int arr[], int n)
+class Solution
 {
-    for (int index = 0; index < n; index++)
+public:
+    int missingNumber(vector<int> &nums)
     {
-        while (index != arr[index] - 1)
+        cyclicSort(nums, nums.size());
+
+        for (int i = 0; i < nums.size(); i++)
         {
-            // duplicates are not allowed
-            if (arr[index] <= 0 || arr[index] > n || arr[index] == arr[arr[index] - 1])
+            if (nums[i] == 0)
             {
-                break;
+                return i + 1;
             }
-            swap(arr[index], arr[arr[index] - 1]);
         }
-    }
-}
 
-int missingNumberByCS(int arr[], int n)
-{
-    cyclicsort(arr, n);
-    for (int i = 0; i < n; i++)
+        return 0;
+    }
+
+    void cyclicSort(vector<int> &arr, int n)
     {
-        if (i != arr[i] - 1)
+        for (int i = 0; i < n; i++)
         {
-            return i + 1;
+            while (i != arr[i] - 1)
+            {
+                if (arr[i] == 0)
+                {
+                    break;
+                }
+                swap(arr[i], arr[arr[i] - 1]);
+            }
         }
     }
-    return -1;
-}
-int missingNUmberByMaths(int arr[],int n)
+};
+
+// based on maths
+class Solution
 {
-    int actualSum = (n * (n + 1)) / 2;
-    int sum = 0;
-    for (int i = 0; i < n; i++)
+public:
+    int missingNumber(vector<int> &nums)
     {
-        // missing number can also be represented as zero
-        if (arr[i] > 0)
-        {
-            sum += arr[i];
-        }
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        int n = nums.size();
+        int expectedSum = (n * (n + 1)) / 2;
+        return expectedSum - sum;
     }
-    return actualSum - sum;
-}
-
-int main()
-{
-    // int arr[]={1,2,0};
-    int arr[] = {3, 4, -1, 1};
-
-    int n = sizeof(arr) / sizeof(arr[0]);
-    int res = missingNumberByCS(arr, n);
-    cout << res << endl;
-}
+};

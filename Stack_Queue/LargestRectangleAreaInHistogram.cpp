@@ -1,5 +1,5 @@
 /*
-https://www.geeksforgeeks.org/largest-rectangular-area-in-a-histogram-using-stack/
+https://leetcode.com/problems/largest-rectangle-in-histogram/
 
 Find the largest rectangular area possible in a given histogram where the largest rectangle can be made of a number of contiguous bars.
 
@@ -20,33 +20,36 @@ using namespace std;
 
 // O(2N)
 // monotonic stack
+// intution:- we can form the rectangle only until a smallest histogram which we can find to the left and right
+// so possible width of rectangle is = nextSmaller(i) -  prevSmaller(i) - 1
 class Solution
 {
 public:
     int largestRectangleArea(vector<int> &heights)
     {
-        stack<int> s;
-        int max_area = 0;
+        int maxArea = 0;
+        stack<int> s; // stores indices
+        // monotonic stack,
+        // previous smaller element + next smaller element
+         // previous smaller element focus
         int n = heights.size();
-
-        // previous smaller
-        for (int i = 0; i <= n; ++i)
+        for (int i = 0; i <= n; i++)
         {
-            while (!s.empty() && (i == n || heights[i] < heights[s.top()]))
+            // if value < s.top means that for the s.top value is the nse
+            while (!s.empty() && (i == n || heights[s.top()] > heights[i]))
             {
-                // calculating for the smallest guy, by taking him back or like coming back
+                // calculate the area for the previous guy, because now we got the nse for this guy
                 int h = heights[s.top()];
                 s.pop();
-                //  next[i] - prev[i] - 1;
-                // i = next
-                // s.top = prev
-                int w = s.empty() ? i : i - s.top() - 1;
-                max_area = max(max_area, h * w);
+                int nse = i;
+                int pse = s.empty() ? -1 : s.top();
+                int w = nse - pse - 1;
+                int area = h * w;
+                maxArea = max(maxArea, area);
             }
             s.push(i);
         }
-
-        return max_area;
+        return maxArea;
     }
 };
 /*

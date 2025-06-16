@@ -40,11 +40,13 @@ public:
         dfsRecursive(startVertex, visited);
     }
 
-    //use recursive method
+    // use recursive method
     void dfsUsingStack(int startVertex)
     {
         vector<bool> visited(vertices, false);
         stack<int> s;
+
+        visited[startVertex] = true; // Mark as visited when pushing
         s.push(startVertex);
 
         while (!s.empty())
@@ -52,17 +54,14 @@ public:
             int currentVertex = s.top();
             s.pop();
 
-            if (!visited[currentVertex])
-            {
-                visited[currentVertex] = true;
-                cout << currentVertex << " ";
+            cout << currentVertex << " ";
 
-                for (const auto &neighbor : adjacencyList[currentVertex])
+            for (const auto &neighbor : adjacencyList[currentVertex])
+            {
+                if (!visited[neighbor])
                 {
-                    if (!visited[neighbor])
-                    {
-                        s.push(neighbor);
-                    }
+                    visited[neighbor] = true; // Mark as visited when pushing
+                    s.push(neighbor);
                 }
             }
         }
@@ -79,7 +78,6 @@ int main()
     g.addEdge(0, 3);
     g.addEdge(2, 3);
     g.addEdge(2, 4);
-
 
     cout << "DFS starting from vertex 0:" << endl;
     g.dfs(0);

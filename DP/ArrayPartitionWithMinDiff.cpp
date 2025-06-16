@@ -1,10 +1,10 @@
 // https://www.naukri.com/code360/problems/partition-a-set-into-two-subsets-such-that-the-difference-of-subset-sums-is-minimum_842494?leftPanelTabValue=PROBLEM
 #include <vector>
+#include <algorithm>
 using namespace std;
 // array contains only +ve numbers
 int minSubsetSumDifference(vector<int> &arr, int n)
 {
-    // Write your code here.
     int totalSum = 0;
     for (auto ele : arr)
     {

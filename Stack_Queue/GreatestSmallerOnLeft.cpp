@@ -8,18 +8,18 @@ using namespace std;
 vector<int> Smallestonleft(int arr[], int n)
 {
     vector<int> res(n, -1);
-    set<int> seen;
+    set<int> seenSet;
 
     for (int i = 0; i < n; i++)
     {
         // set.lower_bound(val) gives the ceiling of val in the set.
-        auto it = seen.lower_bound(arr[i]);// loweBound >= arr[i]
-        if (it != seen.begin())
+        auto it = seenSet.lower_bound(arr[i]);// loweBound >= arr[i]
+        if (it != seenSet.begin())
         {
             --it;
             res[i] = *it;
         }
-        seen.insert(arr[i]);
+        seenSet.insert(arr[i]);
     }
 
     return res;

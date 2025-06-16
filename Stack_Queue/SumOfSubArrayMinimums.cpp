@@ -2,7 +2,39 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <climits>
 using namespace std;
+class Solution
+{
+public:
+    int sumSubarrayMins(vector<int> &arr)
+    {
+        int res = 0;
+        int n = arr.size();
+        stack<int> s; // stores indices
+        int mod = 1e9 + 7;
+        // previous smaller element
+        for (int i = 0; i <= n; i++)
+        {
+            while (!s.empty() && (i == n || arr[s.top()] > arr[i]))
+            {
+                int curr = s.top();
+                s.pop();
+
+                int nse = i;
+                int pse = s.empty() ? -1 : s.top();
+                int left = curr - pse;
+                int right = nse - curr;
+                long long contributions = left * right;
+                res = (res + arr[curr] * contributions) % mod;
+            }
+            s.push(i);
+        }
+
+        return res;
+    }
+};
+
 // O(N)
 class Solution
 {

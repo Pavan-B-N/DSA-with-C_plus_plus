@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <climits>
+#include <algorithm>
 using namespace std;
 
 int lcs(string &str1, string &str2)
@@ -30,3 +32,46 @@ int lcs(string &str1, string &str2)
 
     return ans;
 }
+
+class Solution
+{
+public:
+    int longestCommonSubstr(string &s1, string &s2)
+    {
+        int n = s1.size();
+        int m = s2.size();
+
+        vector<vector<int>> dp(n, vector<int>(m, -1));
+        int maxLen = 0;
+
+        // check all pairs recursively
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                maxLen = max(maxLen, lcs(i, j, s1, s2, dp));
+            }
+        }
+
+        return maxLen;
+    }
+
+private:
+    int lcs(int i, int j, string &s1, string &s2, vector<vector<int>> &dp)
+    {
+        if (i < 0 || j < 0)
+            return 0;
+
+        if (dp[i][j] != -1)
+            return dp[i][j];
+
+        if (s1[i] == s2[j])
+        {
+            // characters match
+            return dp[i][j] = 1 + lcs(i - 1, j - 1, s1, s2, dp);
+        }
+
+        // mismatch: reset to 0
+        return dp[i][j] = 0;
+    }
+};

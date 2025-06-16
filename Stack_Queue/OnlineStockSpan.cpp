@@ -11,6 +11,7 @@ class StockSpanner
 public:
     int currIndex = -1;
     //  monotonic stack
+    // previous greater
     stack<pair<int, int>> s; // {price, index}
 
     StockSpanner() {}

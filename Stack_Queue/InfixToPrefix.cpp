@@ -14,44 +14,60 @@ Rules
 5.reverse the prefix expression to get actuall prefix expression
  */
 
-int prec(char c) {
-    switch (c) {
-        case '+':
-        case '-':
-            return 1;
-        case '*':
-        case '/':
-        case '%':
-            return 2;
-        case '^':
-            return 3;
+int prec(char c)
+{
+    switch (c)
+    {
+    case '+':
+    case '-':
+        return 1;
+    case '*':
+    case '/':
+    case '%':
+        return 2;
+    case '^':
+        return 3;
     }
     return -1;
 }
 
-string toPrefix(const string& infix) {
+string toPrefix(const string &infix)
+{
     string prefix;
     stack<char> stack;
     // we can traverse the string in reverse order
-    for (int i = infix.length() - 1; i >= 0; i--) {
+    for (int i = infix.length() - 1; i >= 0; i--)
+    {
         char symbol = infix[i];
-        if (isspace(symbol)) {
+        if (isspace(symbol))
+        {
             continue;
-        } else if (isalnum(symbol)) {
+        }
+        else if (isalnum(symbol))
+        {
             prefix += symbol;
-        } else if (symbol == ')') {
+        }
+        else if (symbol == ')')
+        {
             stack.push(symbol);
-        } else if (symbol == '(') {
-            while (!stack.empty() && stack.top() == ')') {
+        }
+        else if (symbol == '(')
+        {
+            while (!stack.empty() && stack.top() == ')')
+            {
                 char ch = stack.top();
                 stack.pop();
                 prefix += ch;
             }
-            if (!stack.empty()) {
+            if (!stack.empty())
+            {
                 stack.pop();
             }
-        } else {
-            while (!stack.empty() && stack.top() != ')' && prec(symbol) < prec(stack.top())) {
+        }
+        else
+        {
+            while (!stack.empty() && stack.top() != ')' && prec(symbol) < prec(stack.top()))
+            {
                 char ch = stack.top();
                 stack.pop();
                 prefix += ch;
@@ -60,7 +76,8 @@ string toPrefix(const string& infix) {
         }
     }
 
-    while (!stack.empty()) {
+    while (!stack.empty())
+    {
         char ch = stack.top();
         stack.pop();
         prefix += ch;
@@ -71,7 +88,8 @@ string toPrefix(const string& infix) {
     return prefix;
 }
 
-int main() {
+int main()
+{
     string infix = "A+B";
     cout << "Infix Expression: " << infix << endl;
 

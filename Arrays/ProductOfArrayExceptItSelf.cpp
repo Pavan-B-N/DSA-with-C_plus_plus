@@ -10,10 +10,11 @@ public:
         vector<int> ans(n, 1);
         // a[i] product except itself =  prefixProduct * suffixProduct
         // find all prefix products and store it in the ans
-        ans[0] = 1; // prefix = ans
-        for (int i = 1; i < n; i++)
+        int prefixProduct = 1;
+        for (int i = 0; i < n; i++)
         {
-            ans[i] = ans[i - 1] * nums[i - 1];
+            ans[i] = ans[i] * prefixProduct;
+            prefixProduct *= nums[i];
         }
 
         int suffixProduct = 1;

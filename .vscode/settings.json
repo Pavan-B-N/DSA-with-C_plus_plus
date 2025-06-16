@@ -47,7 +47,9 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "unordered_set": "cpp",
-    "cstring": "cpp"
+    "cstring": "cpp",
+    "stack": "cpp",
+    "climits": "cpp"
   },
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "gcc",

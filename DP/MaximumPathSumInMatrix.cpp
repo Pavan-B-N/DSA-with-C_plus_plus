@@ -1,9 +1,28 @@
 // https://www.naukri.com/code360/problems/maximum-path-sum-in-the-matrix_797998?leftPanelTabValue=PROBLEM
 #include <iostream>
 #include <vector>
+#include <climits>
+#include <algorithm>
 using namespace std;
 
-// preferred
+// memo
+int getMaxPathSum(vector<vector<int>> &matrix)
+{
+    int m = matrix.size();
+    int n = matrix[0].size();
+
+    vector<vector<int>> dp(m, vector<int>(n, -1)); // initialize dp table
+    int maxSum = INT_MIN;
+
+    for (int j = 0; j < n; j++)
+    {
+        int sum = maxPathSum(m - 1, j, matrix, dp);
+        maxSum = max(maxSum, sum);
+    }
+
+    return maxSum;
+}
+
 int maxPathSum(int i, int j, vector<vector<int>> &matrix, vector<vector<int>> &dp)
 {
     int m = matrix.size();
@@ -25,22 +44,7 @@ int maxPathSum(int i, int j, vector<vector<int>> &matrix, vector<vector<int>> &d
     return dp[i][j] = matrix[i][j] + max({up, upLeftDiagonal, upRightDiagonal});
 }
 
-int getMaxPathSum(vector<vector<int>> &matrix)
-{
-    int m = matrix.size();
-    int n = matrix[0].size();
 
-    vector<vector<int>> dp(m, vector<int>(n, -1)); // initialize dp table
-    int maxSum = INT_MIN;
-
-    for (int j = 0; j < n; j++)
-    {
-        int sum = maxPathSum(m - 1, j, matrix, dp);
-        maxSum = max(maxSum, sum);
-    }
-
-    return maxSum;
-}
 
 // tabulation
 int getMaxPathSum(vector<vector<int>> &matrix)
@@ -70,45 +74,6 @@ int getMaxPathSum(vector<vector<int>> &matrix)
     for (int j = 0; j < n; j++)
     {
         maxSum = max(maxSum, dp[m - 1][j]);
-    }
-
-    return maxSum;
-}
-
-///////////
-int maxPathSum(int i, int j, vector<vector<int>> &matrix, vector<vector<int>> &dp)
-{
-    int m = matrix.size();
-    int n = matrix[0].size();
-
-    if (j < 0 || j >= n)
-        return -INT_MAX; // out of bounds
-
-    if (i == m - 1)
-        return matrix[i][j]; // base case
-
-    if (dp[i][j] != -1)
-        return dp[i][j]; // return already computed value
-
-    int down = maxPathSum(i + 1, j, matrix, dp);
-    int downLeftDiagonal = maxPathSum(i + 1, j - 1, matrix, dp);
-    int downRightDiagonal = maxPathSum(i + 1, j + 1, matrix, dp);
-
-    return dp[i][j] = matrix[i][j] + max({down, downLeftDiagonal, downRightDiagonal});
-}
-
-int getMaxPathSum(vector<vector<int>> &matrix)
-{
-    int m = matrix.size();
-    int n = matrix[0].size();
-
-    vector<vector<int>> dp(m, vector<int>(n, -1)); // initialize dp table
-    int maxSum = INT_MIN;
-
-    for (int j = 0; j < n; j++)
-    {
-        int sum = maxPathSum(0, j, matrix, dp);
-        maxSum = max(maxSum, sum);
     }
 
     return maxSum;

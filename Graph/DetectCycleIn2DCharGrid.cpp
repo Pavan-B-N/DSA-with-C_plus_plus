@@ -43,8 +43,10 @@ private:
 
         while (!q.empty())
         {
-            auto [node, parent] = q.front();
+            auto front = q.front();
             q.pop();
+            auto node = front.first;
+            auto parent = front.second;
             int r = node.first, c = node.second;
 
             for (int k = 0; k < 4; ++k)
