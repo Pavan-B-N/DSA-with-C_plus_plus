@@ -38,7 +38,7 @@ public:
             curr->next = copy->next; // Restore original list
             curr = curr->next;
 
-            if (copy->next)
+            if (curr)
             {
                 copy->next = curr->next;
             }

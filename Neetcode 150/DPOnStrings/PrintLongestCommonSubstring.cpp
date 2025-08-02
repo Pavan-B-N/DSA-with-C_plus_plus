@@ -5,40 +5,6 @@
 #include <iostream>
 using namespace std;
 
-string lcs(string &str1, string &str2){
-    // build dp table
-    int n=str1.size();
-    int m=str2.size();
-
-    vector<vector<int>> dp(n+1,vector<int>(m+1,0));
-    int maxi=0;
-    int maxj=0;
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
-            if(str1[i-1]==str2[j-1]){
-                // diagonal
-                dp[i][j]=1+dp[i-1][j-1];
-                if(dp[i][j]>=dp[maxi][maxj]){
-                    maxi=i;
-                    maxj=j;
-                }
-            }
-        }
-    }
-
-    int len=dp[maxi][maxj];
-    string lcSubstring(len,' ');
-    int index=len-1;
-    while(maxi>0 && maxj>0){
-        // maxi is 1-based, and str1 is 0-based indexed. You should use str1[maxi - 1].
-        lcSubstring[index--]=str1[maxi-1];
-        maxi--;
-        maxj--;
-    }
-
-    return lcSubstring;
-}
-
 // optmized way
 string lcs(string &str1, string &str2) {
     int n = str1.size(), m = str2.size();

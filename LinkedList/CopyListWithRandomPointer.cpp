@@ -16,6 +16,7 @@ public:
         random = NULL;
     }
 };
+// optimal
 class Solution
 {
 public:
@@ -54,7 +55,7 @@ public:
             curr->next = copy->next; // Restore original list
             curr = curr->next;
 
-            if (copy->next)
+            if (curr)
             {
                 copy->next = curr->next;
             }
@@ -63,46 +64,41 @@ public:
         return copyHead;
     }
 };
+
 class Solution
 {
 public:
     Node *copyRandomList(Node *head)
     {
         if (!head)
-            return nullptr; // Early return for empty list
-
-        unordered_map<Node *, Node *> map; // Mapping from original nodes to copied nodes
-
-        // Step 1: Create a copy of each node and store in the map
-        Node *originalNode = head;
-        Node *copiedHead = new Node(-1); // Temporary head for the new list
-        Node *copiedNode = copiedHead;
-
-        while (originalNode != nullptr)
         {
-            Node *newNode = new Node(originalNode->val);
-            copiedNode->next = newNode;
-            copiedNode = newNode;
-            map[originalNode] = newNode; // Store the mapping of original node to copied node
-            originalNode = originalNode->next;
+            return head;
         }
 
-        copiedHead = copiedHead->next; // Move to the actual head of the new list
-
-        // Step 2: Set the random pointers for the copied nodes
-        originalNode = head;
-        copiedNode = copiedHead;
-
-        while (originalNode != nullptr)
+        unordered_map<Node *, Node *> hashMap;
+        Node *temp = head;
+        while (temp)
         {
-            if (originalNode->random)
-            {
-                copiedNode->random = map[originalNode->random]; // Map random pointer
-            }
-            originalNode = originalNode->next;
-            copiedNode = copiedNode->next;
+            hashMap[temp] = new Node(temp->val);
+            temp = temp->next;
         }
 
-        return copiedHead;
+        //  for (auto [oldNode, newNode] : hashMap)
+        // {
+        //     if (oldNode->next)
+        //         newNode->next = hashMap[oldNode->next];
+        //     if (oldNode->random)
+        //         newNode->random = hashMap[oldNode->random];
+        // }
+        for (auto it = hashMap.begin(); it != hashMap.end(); ++it)
+        {
+            Node *oldNode = it->first;
+            Node *newNode = it->second;
+            if (oldNode->next)
+                newNode->next = hashMap[oldNode->next];
+            if (oldNode->random)
+                newNode->random = hashMap[oldNode->random];
+        }
+        return hashMap[head];
     }
 };

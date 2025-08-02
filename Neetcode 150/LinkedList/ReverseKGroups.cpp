@@ -2,6 +2,7 @@
 #include "ListNode.h"
 
 // practice both
+// recursive approach
 class Solution
 {
 public:
@@ -42,6 +43,7 @@ public:
     }
 };
 
+// iterative approach
 class Solution
 {
 public:

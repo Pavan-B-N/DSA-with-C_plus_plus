@@ -51,7 +51,7 @@ int maxSumOfNonAdjacentElementsDP(vector<int> &arr,int index,vector<int> &dp){
 int maxSumOfNonAdjacentElementsTabulation(vector<int> &arr){
     int n=arr.size();
     vector<int> dp(n,-1);
-    dp[0]=arr[0];
+    dp[0]=arr[0];   
     for(int i=1;i<n;i++){
         int pick=arr[i];
         if(i>1){

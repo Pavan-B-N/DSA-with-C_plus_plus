@@ -2,66 +2,49 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
-void printDPTable(vector<vector<int>> dp){
-    for(int i=0;i<dp.size();i++){
-        for(int j=0;j<dp[i].size();j++){
-            cout << dp[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
-string findLCS(int n, int m, string &s, string &t) {
+string findLCS(int n, int m, string &s1, string &s2)
+{
+    // Write your code here.
     vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
-
-    // Fill the DP table using the technique of finding the length of LCS
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= m; j++) {
-            // shift index method
-            if (s[i - 1] == t[j - 1]) {
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= m; j++)
+        {
+            if (s1[i - 1] == s2[j - 1])
+            {
                 dp[i][j] = 1 + dp[i - 1][j - 1];
-            } else {
+            }
+            else
+            {
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
             }
         }
     }
 
+    string ans;
+    int i = n;
+    int j = m;
 
-    printDPTable(dp);
-
-    // Reconstruct the LCS string
-    int len = dp[n][m];
-    string ans(len, ' ');  // Create a string of length `len` filled with spaces
-
-    int index = len - 1;
-    int i = n, j = m;
-
-    while (i > 0 && j > 0) {
-        if (s[i - 1] == t[j - 1]) {
-            ans[index] = s[i - 1];
-            index--;
+    while (i > 0 && j > 0)
+    {
+        if (s1[i - 1] == s2[j - 1])
+        {
+            ans.push_back(s1[i - 1]);
             i--;
             j--;
-        } else if (dp[i - 1][j] > dp[i][j - 1]) {
-            // if string is not matching then go to the place from where they have came
+        }
+        else if (dp[i - 1][j] > dp[i][j - 1])
+        {
             i--;
-        } else {
+        }
+        else
+        {
             j--;
         }
     }
-
+    reverse(ans.begin(), ans.end());
     return ans;
-}
-
-int main() {
-    string s = "acd";
-    string t = "ced";
-    int n = s.length();
-    int m = t.length();
-
-    string lcs = findLCS(n, m, s, t);
-    cout << "LCS: " << lcs << endl;
-
-    return 0;
 }

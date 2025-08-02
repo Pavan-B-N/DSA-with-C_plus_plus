@@ -42,7 +42,7 @@ public:
         
         // Sort by start time
         sort(intervals.begin(), intervals.end(), [](const Interval &a, const Interval &b)
-             { return a.start < b.start; });
+             { return a.start < b.start; }); 
 
         // Min-heap to track the end times
         priority_queue<int, vector<int>, greater<int>> minHeap;

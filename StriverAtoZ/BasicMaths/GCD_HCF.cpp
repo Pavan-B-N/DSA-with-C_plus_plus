@@ -2,6 +2,8 @@
 // https://www.naukri.com/code360/problems/hcf-and-lcm_840448?leftPanelTabValue=PROBLEM
 #include <iostream>
 using namespace std;
+// brute force = // O(min(a,b))
+//  optimal = O(log min(n,m))
 
 // O(min(a,b))
 int calcGCD(int a, int b)
@@ -18,4 +20,16 @@ int calcGCD(int a, int b)
     }
 
     return gcd;
+}
+
+// O(log min(n,m))
+int calcGCD(int a, int b)
+{
+    while (b != 0)
+    {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
 }

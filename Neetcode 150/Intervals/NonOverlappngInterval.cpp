@@ -1,3 +1,10 @@
+/*
+Given an array of intervals intervals where intervals[i] = [starti, endi], return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+
+Input: intervals = [[1,2],[2,3],[3,4],[1,3]]
+Output: 1
+Explanation: [1,3] can be removed and the rest of the intervals are non-overlapping.
+*/
 // https://leetcode.com/problems/non-overlapping-intervals/description/
 #include <vector>
 #include <algorithm>
@@ -14,6 +21,13 @@ public:
             return 0;
 
         // Step 1: Sort intervals by their end time
+        // to process intervals in the order they appear chronologically
+        // sort based on start time: [[1, 2], [1, 5], [2, 3], [4, 6], [6, 8], [7, 9]]
+
+        //  to pick intervals with the earliest end to allow more future intervals — a greedy choice
+        // sort base on end time: [[1, 2], [2, 3], [1, 5], [4, 6], [6, 8], [7, 9]]
+
+        //  removing the larger (wider) interval when two intervals overlap.
         sort(intervals.begin(), intervals.end(), [](const vector<int> &a, const vector<int> &b)
              { return a[1] < b[1]; });
 

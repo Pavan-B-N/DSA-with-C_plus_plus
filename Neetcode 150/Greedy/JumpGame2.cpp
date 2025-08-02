@@ -31,37 +31,38 @@ public:
     }
 };
 
-// Good but gives TLE
-// O(n^2)
+// O(n^2) in the worst case.
+// For each index i, you're potentially making up to nums[i] recursive calls.
+// In the worst case (e.g., nums = {n, n-1, ..., 1}), you may go from i → i+1 → i+2 → ... → n-1.
+#include <climits>
+#include <vector>
+using namespace std;
+
 class Solution
 {
 public:
     int jump(vector<int> &nums)
     {
         int n = nums.size();
-        vector<vector<int>> dp(n, vector<int>(n, -1)); // dp[index][steps]
-        return jump(0, nums, 0, dp);
+        vector<long long> dp(n, -1); // dp[i] = min jumps from i to end
+        return (int)jumpFrom(0, nums, dp);
     }
 
-    int jump(int index, vector<int> &nums, int steps, vector<vector<int>> &dp)
+    long long jumpFrom(int index, vector<int> &nums, vector<long long> &dp)
     {
-        if (index >= nums.size() - 1)
+        if (index == nums.size() - 1)
+            return 0;
+
+        if (dp[index] != -1)
+            return dp[index];
+
+        long long minSteps = INT_MAX;
+        for (int i = 1; i <= nums[index] && index + i < nums.size(); i++)
         {
-            return steps;
+            long long steps = 1 + jumpFrom(index + i, nums, dp);
+            minSteps = min(minSteps, steps);
         }
 
-        if (dp[index][steps] != -1)
-            return dp[index][steps];
-
-        int minSteps = INT_MAX;
-
-        // O(n)
-        for (int i = 1; i <= nums[index]; i++)
-        {
-            int totalSteps = jump(index + i, nums, steps + 1, dp);
-            minSteps = min(minSteps, totalSteps);
-        }
-
-        return dp[index][steps] = minSteps;
+        return dp[index] = minSteps;
     }
 };

@@ -18,7 +18,7 @@ using namespace std;
 // Time complexity = o(n) left skew of tree
 // Space complexity = o(n)
 int frogDp(int index,vector<int> &heights,vector<int> &dp){
-    if(index<=0){
+    if(index==0){
         return 0;
     }
     if(dp[index]!=-1){

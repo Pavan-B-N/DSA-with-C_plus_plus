@@ -10,18 +10,9 @@ public:
         {
             return list1 == nullptr ? list2 : list1;
         }
-        ListNode *head;
-        if (list1->val < list2->val)
-        {
-            head = list1;
-            list1 = list1->next;
-        }
-        else
-        {
-            head = list2;
-            list2 = list2->next;
-        }
+        ListNode *head = new ListNode();// dummy node
         ListNode *tail = head;
+        
         while (list1 && list2)
         {
             if (list1->val < list2->val)
@@ -45,7 +36,7 @@ public:
         {
             tail->next = list2;
         }
-        return head;
+        return head->next;
     }
 };
 // space complexity = O(n+m)
