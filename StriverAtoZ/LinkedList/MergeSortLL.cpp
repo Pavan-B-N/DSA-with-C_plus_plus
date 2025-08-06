@@ -16,11 +16,9 @@ public:
             return head;
 
         ListNode *mid = getMid(head);
-        ListNode *left = head;
-        ListNode *right = mid;
 
-        ListNode *leftSorted = sortList(left);
-        ListNode *rightSorted = sortList(right);
+        ListNode *leftSorted = sortList(head);
+        ListNode *rightSorted = sortList(mid);
 
         return mergeLL(leftSorted, rightSorted);
     }

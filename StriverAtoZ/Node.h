@@ -5,12 +5,13 @@ class Node
 {
 public:
     int data;
+    int val;
     Node *left;
     Node *right;
 
     // Constructor to initialize a new node
     Node(int val)
-        : data(val), left(nullptr), right(nullptr) {}
+        : data(val),val(val), left(nullptr), right(nullptr) {}
 };
 
 #endif // NODE_H
