@@ -1,0 +1,65 @@
+// https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/1
+
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+class Graph
+{
+public:
+    int vertices;
+    vector<vector<int>> adjacencyList;
+
+    Graph(int v) : vertices(v), adjacencyList(v) {}
+
+    void addEdge(int u, int v)
+    {
+        adjacencyList[u].push_back(v);
+        // Uncomment the following line for an undirected graph
+        adjacencyList[v].push_back(u);
+    }
+
+    void bfs(int startVertex)
+    {
+        vector<bool> visited(vertices, false);
+        queue<int> q;
+
+        q.push(startVertex);
+        visited[startVertex] = true;
+
+        while (!q.empty())
+        {
+            int currentVertex = q.front();
+            cout << currentVertex << " ";
+            q.pop();
+
+            for (const auto &neighbor : adjacencyList[currentVertex])
+            {
+                if (!visited[neighbor])
+                {
+                    visited[neighbor] = true;
+                    q.push(neighbor);
+                }
+            }
+        }
+    }
+};
+
+int main()
+{
+    Graph g(5); // Create a graph with 5 vertices
+
+    // Add edges
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 2);
+    g.addEdge(1, 3);
+    g.addEdge(2, 4);
+    g.addEdge(3, 4);
+
+    cout << "BFS starting from vertex 0:" << endl;
+    g.bfs(0);
+
+    return 0;
+}
