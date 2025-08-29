@@ -9,6 +9,42 @@ using namespace std;
 // better
 // Time = O(n * log n) + O(k * log n) = O((n + k) * log n)
 // Space = O(n)
+
+class Solution
+{
+public:
+    double findSmallestMaxDist(vector<int> &stations, int k)
+    {
+        priority_queue<tuple<double, int, int>> maxHeap; // {gap, segmentLength, sectors}
+
+        for (int i = 1; i < stations.size(); i++)
+        {
+            double gap = abs(stations[i] - stations[i - 1]);
+            maxHeap.push({gap, gap, 1});
+        }
+
+        for (int i = 0; i < k; i++)
+        {
+            auto [gap, segmentLength, sectors] = maxHeap.top();
+            maxHeap.pop();
+
+            int newSector = sectors + 1;
+            double newDist = (double)segmentLength / newSector;
+            maxHeap.push({newDist, segmentLength, newSector});
+        }
+
+        auto [res, seg, sec] = maxHeap.top();
+        // 18.6263 = 18.63
+        // 18.6263 * 100 = 1862.63
+        // round(1862.63) = 1863, rounds to the nearest integer.
+        // 18.63
+        return round(res*100)/100.0;
+    }
+};
+
+// better
+// Time = O(n * log n) + O(k * log n) = O((n + k) * log n)
+// Space = O(n)
 class Solution
 {
 public:

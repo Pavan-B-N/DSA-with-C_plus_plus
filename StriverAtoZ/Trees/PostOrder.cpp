@@ -36,6 +36,7 @@ public:
             return ans;
         stack<TreeNode *> s1, s2;
         s1.push(root);
+        
         while (!s1.empty())
         {
             TreeNode *node = s1.top();

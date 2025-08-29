@@ -39,6 +39,7 @@ public:
         }
         stack<TreeNode *> st;
         st.push(root);
+        
         while (!st.empty())
         {
             TreeNode *node = st.top();
@@ -51,5 +52,31 @@ public:
                 st.push(node->left);
         }
         return ans;
+    }
+};
+
+class Solution
+{
+public:
+    vector<int> preorderTraversal(TreeNode *root)
+    {
+        stack<TreeNode *> st;
+        vector<int> res;
+
+        while (root || !st.empty())
+        {
+            while (root)
+            {
+                res.push_back(root->val);
+                st.push(root);
+                root = root->left;
+            }
+
+            root = st.top();
+            st.pop();
+
+            root = root->right;
+        }
+        return res;
     }
 };
