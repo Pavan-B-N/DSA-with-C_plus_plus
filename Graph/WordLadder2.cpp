@@ -6,65 +6,66 @@
 #include <unordered_set>
 using namespace std;
 
-
 // LeetCode Memory limit: its not working on leetcode because it requires cp to reduce memory usage
 // but works in GFG
-class Solution {
+class Solution
+{
 public:
-    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string> &wordList)
+    {
         vector<vector<string>> ans;
-        unordered_set<string> wordSet(wordList.begin(),wordList.end());
-        queue<vector<string>> q;// transformed wordList
 
+        unordered_set<string> hashSet(wordList.begin(), wordList.end());
+        if (!hashSet.count(endWord))
+            return ans; // endWord not in list → return {}
+
+        queue<vector<string>> q;
         q.push({beginWord});
 
-        unordered_set<string> usedOnLevel;
-        usedOnLevel.insert(beginWord);
+        bool found = false; // stop BFS after first level reaching endWord
 
-        int level=0;
+        while (!q.empty() && !found)
+        {
+            int levelSize = q.size();
+            unordered_set<string> usedOnLevel;
 
-        while(!q.empty()){
-            vector<string> vec=q.front();
-            q.pop();
+            for (int i = 0; i < levelSize; i++)
+            {
+                auto vec = q.front();
+                string word = vec.back();
+                q.pop();
 
-            if(vec.size()>level){
-                level++;
-                for(string ele:usedOnLevel){
-                    wordSet.erase(ele);
-                }
-                usedOnLevel.clear();  // removes all elements
-            }   
+                for (int j = 0; j < word.size(); j++)
+                {
+                    char originalChar = word[j];
+                    for (char ch = 'a'; ch <= 'z'; ch++)
+                    {
+                        word[j] = ch;
 
-            string word=vec.back();
-            if(word==endWord){
-                if(ans.empty()){
-                    ans.push_back(vec);
-                }else if(ans[0].size() == vec.size()){
-                    ans.push_back(vec);
-                }
-                else{
-                    return ans;
-                }
-            }
-
-            for(int i=0;i<word.length();i++){
-                char original=word[i];
-                for(char ch='a';ch<='z';ch++){
-                    word[i]=ch;
-                    if(wordSet.count(word)){
-                        usedOnLevel.insert(word);
-                        vec.push_back(word);
-                        q.push(vec);
-
-                        vec.pop_back();
+                        if (hashSet.count(word))
+                        {
+                            vec.push_back(word);
+                            if (word == endWord)
+                            {
+                                found = true;
+                                ans.push_back(vec);
+                            }
+                            else
+                            {
+                                q.push(vec);
+                            }
+                            vec.pop_back();
+                            usedOnLevel.insert(word);
+                        }
                     }
+                    word[j] = originalChar;
                 }
-
-                word[i]=original;
             }
+
+            for (auto &w : usedOnLevel)
+                hashSet.erase(w);
         }
 
         return ans;
-
     }
 };

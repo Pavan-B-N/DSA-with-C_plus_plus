@@ -6,6 +6,7 @@
 #include <algorithm>
 using namespace std;
 // DPOnStrings\MinOperationsToConverStringAToB.cpp
+// The difference from minoperations and this is , in minoperations replcae takes 2 operations = insert + delete whereas here its considered as single operation
 class Solution
 {
 public:
@@ -21,13 +22,15 @@ public:
                           vector<vector<int>> &dp)
     {
         if (i < 0)
-            return j + 1;
+            return j + 1; // thinking about replace
         if (j < 0)
-            return i + 1;
+            return i + 1; // thinking about delete
+
         if (dp[i][j] != -1)
         {
             return dp[i][j];
         }
+
         if (s1[i] == s2[j])
         {
             return dp[i][j] = 0 + findMinOperations(i - 1, j - 1, s1, s2, dp);

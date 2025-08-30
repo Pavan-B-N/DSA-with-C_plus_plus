@@ -6,9 +6,8 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-// https://www.geeksforgeeks.org/problems/topological-sort/1
-
 using namespace std;
+// https://www.geeksforgeeks.org/problems/topological-sort/1
 
 // Algo
 /*

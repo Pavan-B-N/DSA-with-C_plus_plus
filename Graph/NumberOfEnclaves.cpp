@@ -62,6 +62,7 @@ public:
 
         return enclaves;
     }
+    
     void dfs(vector<vector<int>> &board, vector<vector<bool>> &visited, int row, int col)
     {
         visited[row][col] = true;

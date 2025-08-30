@@ -11,7 +11,6 @@ allowed to jump i+1,i+2,i+3 .... i+k
 using namespace std;
 
 // Recursive Solution with Memoization
-
 int frogJumpKDistance(int n, vector<int> &heights, int k)
 {
     vector<int> dp(n, -1);
@@ -55,27 +54,6 @@ int frogJumpKDistance(int n, vector<int> &heights, int k)
         }
     }
     return dp[n - 1];
-}
-
-// Optimized Space Approach;
-// but if k==n then space is not optimized
-int frogJumpKDistanceOptimized(int n, vector<int> &heights, int k)
-{
-    vector<int> dp(k + 1, 0);
-
-    for (int i = 1; i < n; i++)
-    {
-        int min_energy = INT_MAX;
-        for (int j = 1; j <= k; j++)
-        {
-            if (i - j >= 0)
-            {
-                min_energy = min(min_energy, dp[(i - j) % (k + 1)] + abs(heights[i] - heights[i - j]));
-            }
-        }
-        dp[i % (k + 1)] = min_energy;
-    }
-    return dp[(n - 1) % (k + 1)];
 }
 
 int main()

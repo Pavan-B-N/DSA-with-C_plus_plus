@@ -12,6 +12,7 @@ void printDPTable(vector<vector<int>> dp){
         cout << endl;
     }
 }
+
 string findLCS(int n, int m, string &s, string &t) {
     vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
 

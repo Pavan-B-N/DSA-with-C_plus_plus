@@ -21,8 +21,7 @@ Output: 0
 Explanation: In this case, no transactions are done and the max profit = 0.
 */
 
-// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/?envType=study-plan-v2&envId=top-interview-150
-#include <iostream>
+// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
 #include <vector>
 using namespace std;
 
@@ -35,18 +34,13 @@ int maxProfit(vector<int> &prices)
     {
         if (prices[i] < min_price)
         {
-            min_price = prices[i];
+            min_price = prices[i]; // buy
         }
         else
         {
-            max_profit = max(max_profit, prices[i] - min_price);
+            max_profit = max(max_profit, prices[i] - min_price); // sell
         }
     }
 
     return max_profit;
-}
-int main(){
-    vector<int> prices={7,1,5,3,6,4};
-    cout<<maxProfit(prices);
-    return 0;
 }

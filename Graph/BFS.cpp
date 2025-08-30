@@ -3,7 +3,6 @@
 #include <iostream>
 #include <queue>
 #include <vector>
-
 using namespace std;
 
 class Graph
@@ -26,8 +25,8 @@ public:
         vector<bool> visited(vertices, false);
         queue<int> q;
 
-        visited[startVertex] = true;
         q.push(startVertex);
+        visited[startVertex] = true;
 
         while (!q.empty())
         {

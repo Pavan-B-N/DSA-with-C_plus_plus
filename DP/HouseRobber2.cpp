@@ -11,10 +11,14 @@ You are given an array/list of non-negative integers 'ARR' representing the amou
 #include <vector>
 using namespace std;
 // recursive solution
-int maxMoneyCanRobRecursive(vector<int>& valueInHouse, int index, bool robRight) {
-    if (index < 0) return 0;
-    if (index == 0 && robRight) return 0;
-    if (index == 0) return valueInHouse[index];
+int maxMoneyCanRobRecursive(vector<int> &valueInHouse, int index, bool robRight)
+{
+    if (index < 0)
+        return 0;
+    if (index == 0 && robRight)
+        return 0;
+    if (index == 0)
+        return valueInHouse[index];
 
     // Recursive cases: Choose to rob or skip the current house
     int pick = valueInHouse[index] + maxMoneyCanRobRecursive(valueInHouse, index - 2, robRight);
@@ -23,9 +27,11 @@ int maxMoneyCanRobRecursive(vector<int>& valueInHouse, int index, bool robRight)
     return max(pick, notPick);
 }
 
-long long int houseRobberRecursive(vector<int>& valueInHouse) {
+long long int houseRobberRecursive(vector<int> &valueInHouse)
+{
     int n = valueInHouse.size();
-    if (n == 1) return valueInHouse[0]; // Single house case
+    if (n == 1)
+        return valueInHouse[0]; // Single house case
     // Exclude the last house
     int excludeLast = maxMoneyCanRobRecursive(valueInHouse, n - 2, false);
     // Exclude the first house
@@ -35,36 +41,45 @@ long long int houseRobberRecursive(vector<int>& valueInHouse) {
 }
 
 // DP = memoization
-int maxMoneyCanRobDP(vector<int>& valueInHouse, int index, bool robRight,vector<int> &dp) {
-    if (index < 0) return 0;
-    if (index == 0 && robRight) return 0;
-    if (index == 0) return valueInHouse[index];
-    if(dp[index]!=-1){
+int maxMoneyCanRobDP(vector<int> &valueInHouse, int index, bool robRight, vector<int> &dp)
+{
+    if (index < 0)
+        return 0;
+    if (index == 0 && robRight)
+        return 0;
+    if (index == 0)
+        return valueInHouse[index];
+    if (dp[index] != -1)
+    {
         return dp[index];
     }
     // Recursive cases: Choose to rob or skip the current house
-    int pick = valueInHouse[index] + maxMoneyCanRobDP(valueInHouse, index - 2, robRight,dp);
-    int notPick = maxMoneyCanRobDP(valueInHouse, index - 1, robRight,dp);
+    int pick = valueInHouse[index] + maxMoneyCanRobDP(valueInHouse, index - 2, robRight, dp);
+    int notPick = maxMoneyCanRobDP(valueInHouse, index - 1, robRight, dp);
 
-    return dp[index]=max(pick, notPick);
+    return dp[index] = max(pick, notPick);
 }
-long long int houseRobberDP(vector<int>& valueInHouse) {
+long long int houseRobberDP(vector<int> &valueInHouse)
+{
     int n = valueInHouse.size();
-    if (n == 1) return valueInHouse[0]; // Single house case
+    if (n == 1)
+        return valueInHouse[0]; // Single house case
     // Exclude the last house
     vector<int> dp1(n, -1);
-    int excludeLast = maxMoneyCanRobDP(valueInHouse, n - 2, false,dp1);
+    int excludeLast = maxMoneyCanRobDP(valueInHouse, n - 2, false, dp1);
     // Exclude the first house
     vector<int> dp2(n, -1);
-    int excludeFirst = maxMoneyCanRobDP(valueInHouse, n - 1, true,dp2);
+    int excludeFirst = maxMoneyCanRobDP(valueInHouse, n - 1, true, dp2);
 
     return max(excludeLast, excludeFirst);
 }
 
 // tabulation - best solution
-int maxMoneyCanRob(vector<int>& valueInHouse, int start, int end) {
+int maxMoneyCanRob(vector<int> &valueInHouse, int start, int end)
+{
     int prev2 = 0, prev1 = 0;
-    for (int i = start; i <= end; ++i) {
+    for (int i = start; i <= end; ++i)
+    {
         int pick = valueInHouse[i] + prev2;
         int notPick = prev1;
         int curr = max(pick, notPick);
@@ -74,9 +89,11 @@ int maxMoneyCanRob(vector<int>& valueInHouse, int start, int end) {
     return prev1;
 }
 
-long long int houseRobber(vector<int>& valueInHouse) {
+long long int houseRobber(vector<int> &valueInHouse)
+{
     int n = valueInHouse.size();
-    if (n == 1) return valueInHouse[0];
+    if (n == 1)
+        return valueInHouse[0];
 
     // Rob houses excluding the first or the last house
     int excludeFirst = maxMoneyCanRob(valueInHouse, 1, n - 1);
@@ -87,6 +104,6 @@ long long int houseRobber(vector<int>& valueInHouse) {
 
 int main(int argc, char const *argv[])
 {
-    cout<<"House Robber 2"<<endl;
+    cout << "House Robber 2" << endl;
     return 0;
 }

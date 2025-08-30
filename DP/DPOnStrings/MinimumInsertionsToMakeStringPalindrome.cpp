@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 using namespace std;
+
 class Solution
 {
 public:
@@ -11,6 +12,7 @@ public:
         int len = s.length();
         return len - longestPalindromeSubseq(s);
     }
+
     int longestPalindromeSubseq(string s)
     {
         string t = s;

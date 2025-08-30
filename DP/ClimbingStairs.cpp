@@ -1,20 +1,10 @@
 /*
 https://leetcode.com/problems/climbing-stairs/description/
 
-
 You are climbing a staircase. It takes n steps to reach the top.
 
-Each time you can either climb 1 or 2 steps. 
+Each time you can either climb 1 or 2 steps.
 In how many distinct ways can you climb to the top?
-
-Example 1:
-
-Input: n = 2
-Output: 2
-Explanation: There are two ways to climb to the top.
-1. 1 step + 1 step
-2. 2 steps
-Example 2:
 
 Input: n = 3
 Output: 3
@@ -28,21 +18,24 @@ Explanation: There are three ways to climb to the top.
 using namespace std;
 
 // memoization
-int climbStairs(int n) {
-    vector<int> memo(n+1, -1);
-    return countPossibleWays(n, memo);
+int climbStairs(int n)
+{
+    vector<int> dp(n + 1, -1);
+    return countPossibleWays(n, dp);
 }
 
-int countPossibleWays(int n, vector<int> &memo) {
-    if (n == 0) return 1;
-    if (n < 0) return 0;
-    if (memo[n] != -1) return memo[n];
+int countPossibleWays(int n, vector<int> &dp)
+{
+    if (n == 0)
+        return 1;
+    if (n < 0)
+        return 0;
+    if (dp[n] != -1)
+        return dp[n];
 
-    memo[n] = countPossibleWays(n - 1, memo) + countPossibleWays(n - 2, memo);
-    return memo[n];
+    dp[n] = countPossibleWays(n - 1, dp) + countPossibleWays(n - 2, dp);
+    return dp[n];
 }
-//----
-
 
 // tabulation
 int climbStairs(int n)
@@ -61,17 +54,19 @@ int climbStairs(int n)
     return dp[n];
 }
 
-int climbStairs(int n) {
-    if(n<=1){
+int climbStairs(int n)
+{
+    if (n <= 1)
+    {
         return n;
     }
-    int a=1;
-    int b=2;
-    for(int i=3;i<=n;i++){
-        int next=a+b;
-        a=b;
-        b=next;
+    int a = 1;
+    int b = 2;
+    for (int i = 3; i <= n; i++)
+    {
+        int next = a + b;
+        a = b;
+        b = next;
     }
-
     return b;
 }

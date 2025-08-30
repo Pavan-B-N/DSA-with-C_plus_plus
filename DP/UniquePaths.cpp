@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-// . The robot can only move either down or right at any point in time.
+// The robot can only move either down or right at any point in time.
 // in reverse manner, down = up, right=left, because we are doing recursion starting from the point m-1,n-1
 // Time Complexity = o(m*n)
 // Space Complexity = O(m-1)+(n-1)+O(m+n))
@@ -33,13 +33,16 @@ int uniquePaths(int i, int j, vector<vector<int>> &dp)
     return dp[i][j] = up + left;
 }
 
-
 // tabulation
-int uniquePaths(int m, int n) {
+int uniquePaths(int m, int n)
+{
     vector<vector<int>> dp(m, vector<int>(n, 0));
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i == 0 && j == 0) {
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (i == 0 && j == 0)
+            {
                 dp[0][0] = 1;
                 continue;
             }

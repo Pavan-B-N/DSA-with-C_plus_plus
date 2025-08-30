@@ -26,115 +26,48 @@ The graph clearly has 2 Provinces [1,3] and [2]. As city 1 and city 3 has a path
 using namespace std;
 
 // Auxiliary Space: O(V)
-// Time complexity: o(V)
-int numProvinces(vector<vector<int>> adj,const int V)
+// Time complexity: o(V + E)
+class Solution
 {
-    // convert adjacency Matrix into adjacency list
-    vector<int> adjLs[V];
-    for (int i = 0; i < V; i++)
+public:
+    int findCircleNum(vector<vector<int>> &adjMatrix)
     {
-        for (int j = 0; j < V; j++)
+        int provinces = 0;
+        int V = adjMatrix.size();
+
+        vector<bool> visited(V, false);
+        for (int i = 0; i < V; i++)
         {
-            if (adj[i][j] == 1 && i != j)
+            if (!visited[i])
             {
-                adjLs[i].push_back(j);
-                adjLs[j].push_back(i);
+                bfs(i, adjMatrix, visited);
+                provinces++;
             }
         }
+
+        return provinces;
     }
-
-    int provinces = 0;
-
-    vector<bool> visited(V, false);
-    for (int i = 0; i < V; i++)
+    void bfs(int startIndex, vector<vector<int>> &adjMatrix,
+             vector<bool> &visited)
     {
-        if (!visited[i])
+        int V = adjMatrix.size();
+        queue<int> q;
+        q.push(startIndex);
+        visited[startIndex] = true;
+
+        while (!q.empty())
         {
-            bfs(i, adjLs, visited);
-            provinces++;
-        }
-    }
+            int cv = q.front();
+            q.pop();
 
-    return provinces;
-}
-
-// we can use any graph traversal algorithms
-void bfs(int startIndex, vector<int> adj[], vector<bool> &visited)
-{
-    queue<int> q;
-    q.push(startIndex);
-    visited[startIndex] = true;
-
-    while (!q.empty())
-    {
-        int cv = q.front();
-        q.pop();
-
-        for (auto &neighbor : adj[cv])
-        {
-            if (!visited[neighbor])
+            for (int i = 0; i < V; i++)
             {
-                visited[neighbor] = true;
-                q.push(neighbor);
+                if (adjMatrix[cv][i] && !visited[i])
+                {
+                    visited[i] = true;
+                    q.push(i);
+                }
             }
         }
     }
-}
-
-// ------------------------------------
-// AdjMatrix Representation
-int findCircleNum(vector<vector<int>>& AdjMatrix) {
-    int n=AdjMatrix.size();
-    int provinence=0;
-    vector<bool> visited(n,false);
-
-    for(int i=0;i<n;i++){
-        if(!visited[i]){
-            bfs(i,AdjMatrix,visited);
-            provinence++;
-        }
-    }
-    return provinence;
-}
-
-void bfs(int si,vector<vector<int>>& AdjMatrix,vector<bool> &visited){
-    queue<int> q;
-    int n=AdjMatrix.size();
-    q.push(si);
-    visited[si]=true;
-    while(!q.empty()){
-        int ci=q.front();
-        q.pop();           
-
-        for(int i=0;i<n;i++){
-            if(AdjMatrix[ci][i]==1  && !visited[i]){
-                visited[i]=true;
-                q.push(i);
-            }
-        }
-    }
-}
-
-// using dfs
-int findCircleNum(vector<vector<int>>& AdjMatrix) {
-    int n=AdjMatrix.size();
-    int provinces=0;
-    vector<bool> visited(n,false);
-    for(int i=0;i<n;i++){
-        if(!visited[i]){
-            dfs(i,AdjMatrix,visited);
-            provinces++;
-        }
-    }
-    return provinces;
-}
-
-void dfs(int currentVertex,vector<vector<int>>& AdjMatrix,vector<bool> &visited){
-    int n=AdjMatrix.size();
-    visited[currentVertex]=true;
-    for(int i=0;i<n;i++){
-        if(AdjMatrix[currentVertex][i]==1 && !visited[i]){
-            dfs(i,AdjMatrix,visited);
-        }
-    }
-}
+};

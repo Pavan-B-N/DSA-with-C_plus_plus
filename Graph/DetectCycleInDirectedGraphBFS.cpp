@@ -12,6 +12,7 @@
 
 using namespace std;
 
+// Kahns algo
 class Solution {
   public:
     bool isCyclic(int V, vector<vector<int>> &edges) {

@@ -21,7 +21,6 @@ To take course 1 you should have finished course 0, and to take course 0 you sho
 #include <iostream>
 #include <vector>
 #include <queue>
-
 using namespace std;
 
 // based on kahn's algorithm = bfs topological sorting

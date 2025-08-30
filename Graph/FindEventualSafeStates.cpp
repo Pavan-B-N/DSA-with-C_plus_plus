@@ -4,7 +4,8 @@
 // In the original graph, a node is safe if all paths from it lead to terminal nodes.
 
 // So, we reverse the graph and start from terminal nodes, and perform topological sort to find all nodes that can reach terminals.
-
+// https://leetcode.com/problems/find-eventual-safe-states/
+// tag: [revise]
 #include <vector>
 #include <queue>
 using namespace std;

@@ -1,4 +1,5 @@
 // https://www.geeksforgeeks.org/problems/bipartite-graph/1
+// https://leetcode.com/problems/is-graph-bipartite/
 
 #include <iostream>
 #include <vector>

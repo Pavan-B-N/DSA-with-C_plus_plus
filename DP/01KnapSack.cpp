@@ -9,6 +9,7 @@ Input: W = 4, val[] = [1, 2, 3], wt[] = [4, 5, 1]
 Output: 3
 Explanation: Choose the last item, which weighs 1 unit and has a value of 3.
 */
+
 #include <vector>
 using namespace std;
 

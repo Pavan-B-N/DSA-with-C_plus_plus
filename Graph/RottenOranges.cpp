@@ -15,65 +15,74 @@ Return the minimum number of minutes that must elapse until no cell has a fresh 
 #include <queue>
 using namespace std;
 
-int orangesRotting(vector<vector<int>> &grid)
+class Solution
 {
-    const int n = grid.size();
-    const int m = grid[0].size();
-    // queue for store {{row,col},timetorotten};
-    queue<pair<pair<int, int>, int>> q;
-    // visited matrix
-    vector<vector<bool>> visited(n, vector<bool>(m));
-    // traverse the matrix and store all rotten oragnes in queue
-    for (int i = 0; i < n; i++)
+public:
+    int orangesRotting(vector<vector<int>> &grid)
     {
-        for (int j = 0; j < m; j++)
+        const int n = grid.size();
+        const int m = grid[0].size();
+
+        typedef pair<int, int> Node; //{row,col}
+        queue<pair<Node, int>> q;    //{node,time_to_rot}
+        vector<vector<int>> visited(n, vector<int>(m, false));
+
+        int time_to_rotten = 0;
+        for (int i = 0; i < n; i++)
         {
-            if (grid[i][j] == 2)
+            for (int j = 0; j < m; j++)
             {
-                q.push({{i, j}, 0});
-                visited[i][j] = true;
-            }
-            else
-                visited[i][j] = false;
-        }
-    }
-    // now traverse in all four direction the queue to get maximum time for all rotten orange
-    int drow[4] = {-1, 0, 1, 0};
-    int dcol[4] = {0, +1, 0, -1};
-    int time_to_rotten = 0;
-
-    // bfs
-    while (!q.empty())
-    {
-        int r = q.front().first.first;
-        int c = q.front().first.second;
-        int t = q.front().second;
-
-        time_to_rotten = max(time_to_rotten, t);
-        q.pop();
-        // move around in all four directions
-        for (int i = 0; i < 4; i++)
-        {
-            int nrw = r + drow[i];
-            int ncl = c + dcol[i];
-
-            // boundary cases
-            if (nrw >= 0 && nrw < n && ncl >= 0 && ncl < m && !visited[nrw][ncl] && grid[nrw][ncl] == 1)
-            {
-                // because for 1 unit of time, each rotten orange can rote a all its nighbor at only 1 unit of time
-                q.push({{nrw, ncl}, t + 1});
-                visited[nrw][ncl] = true;
+                if (grid[i][j] == 2)
+                {
+                    q.push({{i, j}, 0});
+                    visited[i][j] = true;
+                }
             }
         }
-    }
-    // chck is their any cell left having 2
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
+
+        while (!q.empty())
         {
-            if (!visited[i][j] && grid[i][j] == 1)
-                return -1;
+            auto node = q.front().first;
+            int row = node.first;
+            int col = node.second;
+            auto time = q.front().second;
+            time_to_rotten = max(time_to_rotten, time);
+            q.pop();
+
+            int drow[4] = {-1, 0, 1, 0};
+            int dcol[4] = {0, +1, 0, -1};
+
+            for (int k = 0; k < 4; k++)
+            {
+                int nrw = row + drow[k];
+                int ncl = col + dcol[k];
+
+                if (isSafe(nrw, ncl, n, m, grid, visited))
+                {
+                    q.push({{nrw, ncl}, time + 1});
+                    visited[nrw][ncl] = true;
+                }
+            }
         }
+
+        // chck is their any cell left having 2
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                // we must need to make use of visited
+                // because we ae not modifying the input instead we are marking visited as true
+                if (!visited[i][j] && grid[i][j] == 1)
+                    return -1;
+            }
+        }
+        return time_to_rotten;
     }
-    return time_to_rotten;
-}
+
+    bool isSafe(int row, int col, int n, int m, vector<vector<int>> &grid,
+                vector<vector<int>> &visited)
+    {
+        return row >= 0 && row < n && col >= 0 && col < m &&
+               !visited[row][col] && grid[row][col] == 1;
+    }
+};

@@ -12,42 +12,46 @@ To perform a flood fill, consider the starting pixel, plus any pixels connected 
 using namespace std;
 
 // s= starting pexel of row or col
-vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int newColor)
+class Solution
 {
-    int ROW = image.size();
-    int COL = image[0].size();
-    if (sr < 0 || sr >= ROW || sc < 0 || sc >= COL || image[sr][sc] == newColor)
+public:
+    vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int newColor)
     {
+        int ROW = image.size();
+        int COL = image[0].size();
+        if (sr < 0 || sr >= ROW || sc < 0 || sc >= COL || image[sr][sc] == newColor)
+        {
+            return image;
+        }
+        // Code here
+        dfs(image, sr, sc, newColor);
+
         return image;
     }
-    // Code here
-    dfs(image, sr, sc, newColor);
 
-    return image;
-}
-
-void dfs(vector<vector<int>> &image, int row, int col, int newColor)
-{
-    static int rowNbr[] = {-1, 0, 0, 1};
-    static int colNbr[] = {0, -1, 1, 0};
-
-    int initialColor = image[row][col];
-
-    image[row][col] = newColor;
-
-    for (int i = 0; i < 4; i++)
+    void dfs(vector<vector<int>> &image, int row, int col, int newColor)
     {
-        if (isSafe(image, row + rowNbr[i], col + colNbr[i], initialColor))
+        static int rowNbr[] = {-1, 0, 0, 1};
+        static int colNbr[] = {0, -1, 1, 0};
+
+        int initialColor = image[row][col];
+
+        image[row][col] = newColor;
+
+        for (int i = 0; i < 4; i++)
         {
-            dfs(image, row + rowNbr[i], col + colNbr[i], newColor);
+            if (isSafe(image, row + rowNbr[i], col + colNbr[i], initialColor))
+            {
+                dfs(image, row + rowNbr[i], col + colNbr[i], newColor);
+            }
         }
     }
-}
 
-bool isSafe(vector<vector<int>> &image, int row, int col, int initialColor)
-{
-    int ROW = image.size();
-    int COL = image[0].size();
+    bool isSafe(vector<vector<int>> &image, int row, int col, int initialColor)
+    {
+        int ROW = image.size();
+        int COL = image[0].size();
 
-    return (row >= 0 && row < ROW && col >= 0 && col < COL && image[row][col] == initialColor);
-}
+        return (row >= 0 && row < ROW && col >= 0 && col < COL && image[row][col] == initialColor);
+    }
+};

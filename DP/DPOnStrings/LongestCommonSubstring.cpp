@@ -15,6 +15,7 @@ int lcs(string &str1, string &str2)
 
     vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
     int ans = INT_MIN;
+    
     for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= m; j++)

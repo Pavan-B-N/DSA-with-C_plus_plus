@@ -14,14 +14,17 @@ using namespace std;
 
 // based on kahn's algorithm = bfs topological sorting
 
-class Solution {
+class Solution
+{
 public:
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+    vector<int> findOrder(int numCourses, vector<vector<int>> &prerequisites)
+    {
         // courses = 0 to numCourses-1
         // prerequisites are like edges
         // build adjList
         vector<vector<int>> adjList(numCourses);
-        for (auto edge : prerequisites) {
+        for (auto edge : prerequisites)
+        {
             int u = edge[0];
             int v = edge[1];
             adjList[v].push_back(u);
@@ -29,36 +32,45 @@ public:
 
         // apply topological sort using kahns algo bfs
         vector<int> indegree(numCourses);
-        for (auto vec : adjList) {
-            for (auto neighbor : vec) {
+        for (auto vec : adjList)
+        {
+            for (auto neighbor : vec)
+            {
                 indegree[neighbor]++;
             }
         }
 
         // push vertices with 0 indegree
         queue<int> q;
-        for (int i = 0; i < numCourses; i++) {
-            if (indegree[i] == 0) {
+        for (int i = 0; i < numCourses; i++)
+        {
+            if (indegree[i] == 0)
+            {
                 q.push(i);
             }
         }
 
         vector<int> topo;
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             int vertex = q.front();
             q.pop();
 
             topo.push_back(vertex);
 
-            for (auto neighbor : adjList[vertex]) {
+            for (auto neighbor : adjList[vertex])
+            {
                 // we are removing parent node because its part of topo
                 indegree[neighbor]--;
 
-                if (indegree[neighbor] == 0) {
+                if (indegree[neighbor] == 0)
+                {
                     q.push(neighbor);
                 }
             }
         }
         return topo.size() == numCourses ? topo : vector<int>();
+        // if(topo.size() != numCourses) return {};
+        // return topo ;
     }
 };

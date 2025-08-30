@@ -11,9 +11,9 @@ Input: s = "rabbbit", t = "rabbit"
 Output: 3
 Explanation:
 As shown below, there are 3 ways you can generate "rabbit" from s.
-rabbbit
-rabbbit
-rabbbit
+rabb-it
+ra-bbit
+rab-bit
 
 */
 #include <iostream>
@@ -26,65 +26,59 @@ class Solution
 public:
     int numDistinct(string s, string t)
     {
-        int n = s.length();
-        int m = t.length();
-        vector<vector<int>> dp(n, vector<int>(m, -1));
-        return findDistinctSubsequencesOfT(n - 1, m - 1, s, t, dp);
+        int m = s.size();
+        int n = t.size();
+        vector<vector<int>> dp(m, vector<int>(n, -1));
+        return findDistinctSubsequences(m - 1, n - 1, s, t, dp);
     }
-    int findDistinctSubsequencesOfT(int i, int j, string &s, string &t, vector<vector<int>> &dp)
+    int findDistinctSubsequences(int i, int j, string &s, string &t, vector<vector<int>> &dp)
     {
         if (j < 0)
             return 1;
         if (i < 0)
             return 0;
-
         if (dp[i][j] != -1)
-        {
             return dp[i][j];
-        }
-
+        int pick = 0;
         if (s[i] == t[j])
         {
-            int pick = findDistinctSubsequencesOfT(i - 1, j - 1, s, t, dp);
-            int notPick = findDistinctSubsequencesOfT(i - 1, j, s, t, dp);
-            return dp[i][j] = pick + notPick;
+            pick = findDistinctSubsequences(i - 1, j - 1, s, t, dp);
         }
-
         // no match
-        return dp[i][j] = findDistinctSubsequencesOfT(i - 1, j, s, t, dp);
+        int notPick = findDistinctSubsequences(i - 1, j, s, t, dp);
+        return dp[i][j] = pick + notPick;
     }
 };
 
 // tabulation
-int numDistinct(string s, string t)
+class Solution
 {
-    int n = s.length();
-    int m = t.length();
-    vector<vector<unsigned long long>> dp(n + 1, vector<unsigned long long>(m + 1, 0));
-    // base case
-    for (int i = 0; i <= n; i++)
+public:
+    int numDistinct(string s, string t)
     {
-        dp[i][0] = 1;
-    }
-
-    // rest
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= m; j++)
+        int m = s.size();
+        int n = t.size();
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+        for (int i = 0; i <= m; i++)
         {
-            // shitft index method
-            if (s[i - 1] == t[j - 1])
+            dp[i][0] = 1;
+        }
+        for (int i = 1; i <= m; i++)
+        {
+            for (int j = 1; j <= n; j++)
             {
-                unsigned long long pick = dp[i - 1][j - 1];
-                unsigned long long notPick = dp[i - 1][j];
-                dp[i][j] = pick + notPick;
-            }
-            else
-            {
-                // no match
-                dp[i][j] = dp[i - 1][j];
+                int pick = 0;
+                if (s[i - 1] == t[j - 1])
+                {
+                    pick = dp[i - 1][j - 1];
+                }
+                int notPick = dp[i - 1][j];
+                // The test cases are generated so that the answer fits on a 32-bit signed integer.
+                // hence no need to use unsigned long long for the entire DP which is costly
+                // dp[i][j]=pick+notPick
+                dp[i][j] = min((unsigned long long)INT_MAX, (unsigned long long)pick + notPick);
             }
         }
+        return dp[m][n];
     }
-    return dp[n][m];
-}
+};

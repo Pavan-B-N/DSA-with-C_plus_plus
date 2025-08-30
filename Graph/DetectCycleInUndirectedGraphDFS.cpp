@@ -7,28 +7,6 @@ using namespace std;
 class Solution
 {
 public:
-    bool dfs(int node, int parent, vector<vector<int>> &adjList, vector<bool> &visited)
-    {
-        visited[node] = true;
-
-        for (auto neighbor : adjList[node])
-        {
-            if (!visited[neighbor])
-            {
-                if (dfs(neighbor, node, adjList, visited))
-                {
-                    return true;
-                }
-            }
-            else if (neighbor != parent)
-            {
-                return true;
-            }
-        }
-
-        return false; // This line is important and was missing
-    }
-
     bool isCycle(int V, vector<vector<int>> &edges)
     {
         vector<vector<int>> adjList(V);
@@ -47,6 +25,28 @@ public:
                 {
                     return true;
                 }
+            }
+        }
+
+        return false;
+    }
+
+    bool dfs(int node, int parent, vector<vector<int>> &adjList, vector<bool> &visited)
+    {
+        visited[node] = true;
+
+        for (auto neighbor : adjList[node])
+        {
+            if (!visited[neighbor])
+            {
+                if (dfs(neighbor, node, adjList, visited))
+                {
+                    return true;
+                }
+            }
+            else if (neighbor != parent)
+            {
+                return true;
             }
         }
 

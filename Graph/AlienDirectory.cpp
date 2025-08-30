@@ -6,6 +6,8 @@ Your task is to find the order of characters in the alien language.
 N: An integer representing the number of words in the dictionary.
 K: An integer representing the total number of unique characters in the alien language (assume they are all lowercase English letters).
 */
+// tag: [revise]
+
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -13,6 +15,8 @@ K: An integer representing the total number of unique characters in the alien la
 using namespace std;
 
 // https://www.geeksforgeeks.org/problems/alien-dictionary/1
+//  words are claimed to be sorted lexicographically according to the language’s rules.
+// However, if the given arrangement of words is inconsistent with any possible letter ordering, return an empty string ("").
 class Solution
 {
 public:
@@ -40,7 +44,7 @@ public:
             int len = min(s1.size(), s2.size());
 
             // Invalid case: word1 longer and word2 is prefix
-            if (s1.size() > s2.size() && s1.substr(0, len) == s2.substr(0, len))
+            if (s1.size() > s2.size() && s1.substr(0, len) == s2)
             {
                 return "";
             }

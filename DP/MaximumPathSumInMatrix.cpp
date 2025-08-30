@@ -5,7 +5,7 @@
 #include <algorithm>
 using namespace std;
 
-// memo
+// memoization
 int getMaxPathSum(vector<vector<int>> &matrix)
 {
     int m = matrix.size();
@@ -29,10 +29,10 @@ int maxPathSum(int i, int j, vector<vector<int>> &matrix, vector<vector<int>> &d
     int n = matrix[0].size();
 
     if (j < 0 || j >= n)
-        return -INT_MAX; // out of bounds or we can return 1e9
+        return INT_MIN; // out of bounds or we can return 1e9
 
     if (i == 0)
-        return matrix[i][j]; // base case
+        return matrix[0][j]; // base case
 
     if (dp[i][j] != -1)
         return dp[i][j]; // return already computed value
@@ -43,8 +43,6 @@ int maxPathSum(int i, int j, vector<vector<int>> &matrix, vector<vector<int>> &d
 
     return dp[i][j] = matrix[i][j] + max({up, upLeftDiagonal, upRightDiagonal});
 }
-
-
 
 // tabulation
 int getMaxPathSum(vector<vector<int>> &matrix)

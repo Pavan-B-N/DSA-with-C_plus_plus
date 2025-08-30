@@ -46,8 +46,8 @@ public:
 
                 if (nr >= 0 && nr < n && nc >= 0 && nc < m)
                 {
-                    int diff = abs(heights[nr][nc] - heights[r][c]);
-                    int maxEffort = max(currEffort, diff);
+                    int eff = abs(heights[nr][nc] - heights[r][c]);
+                    int maxEffort = max(currEffort, eff);
                     if (maxEffort < effort[nr][nc])
                     {
                         effort[nr][nc] = maxEffort;
